@@ -1,18 +1,34 @@
-# Your Project Name
+# KryptoKnight
 
-This is the starter code for WDI projects. Please update this README file with information specific to your project. Replace this paragraph for instance, with a short description of your project. Then update the sections below. Refer to your project specificaion for instructions on how to submit your projects.
+A cryptocurrency analysis & trading tool
 
-## Getting Started
+## User Stories
 
-Provide instructions here about how to get your project running on our local machine. Do we just need to clone and open a certain file or do we need to install anything first.
+View graphical stats of top performing cryptocurrencies over multiple timelines
+Analysis of cryptocurrency data via technical indicators
 
-### Prerequisites
 
-What is needed to install and run the project, how do we install them
+## Features list
+Signin, login, logout
+View graphical data of top XX cryptocurrencies over XX timelines:
+View XX technical indicators:
+Comparison of performances of top XX cryptocurrencies over specific timelines
+Trader portfolio of cryptocurrencies
+Buy and sell top ten cryptocurrencies with provided XX virtual credits
+View portfolio performance data such as profit & loss
+View performances of other traders
 
-```
-Code example
-```
+## ERD
+User, portfolio, transactions
+
+## Model Schemas
+User:
+Portfolio:
+Transactions:
+
+## Wireframes
+Graph page
+Portfolio & transactions page
 
 ### How to Use
 
@@ -30,28 +46,23 @@ until finished
 ```
 
 
-## Tests
-
-Did you write automated tests? If so, how do we run them.
-
-
-```
-Code example
-```
-
 ## Live Version
 
-Where is this deployed online (github pages, heroku etc), give us the link and any access details we need.
+Heroku link:
 
 ## Built With
 
-What did you use to build it, list the technologies, plugins, gems, packages etc.
+HTML, JS, CSS
+jQuery
+Ruby on Rails
+CSS Framework:
 
-* [jQuery](http://jquery.com/) - jQuery for example is something you likely used
+APIs: Cryptocompare, Quandl
+Graphing Module: Graphicsmetrics
 
 ## Workflow
 
-Did you write user stories, draw wireframes, use task tracking, produce ERDs? Did you use source control, with regular commits? Include links to them here.
+Task tracking: Trello
 
 ## Authors
 
@@ -62,4 +73,3 @@ Did you collaborate with others on this project, list them here
 ## Acknowledgments
 
 * Hat tip to anyone who's code was used, for example [this was a useful starting point for creating this template](https://gist.github.com/PurpleBooth/109311bb0361f32d87a2).
-
