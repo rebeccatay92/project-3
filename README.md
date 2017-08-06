@@ -1,34 +1,36 @@
 # KryptoKnight
 
-A cryptocurrency analysis & trading tool
+A cryptocurrency analysis & trading tool.
 
 ## User Stories
 
-View graphical stats of top performing cryptocurrencies over multiple timelines
-Analysis of cryptocurrency data via technical indicators
+* View graphical stats of top performing cryptocurrencies over multiple timelines
+* Analysis of cryptocurrency data via technical indicators
+* User portfolio of cryptocurrencies
+* Simulated trading of cryptocurrencies with virtual credits
 
 
 ## Features list
-Signin, login, logout
-View graphical data of top XX cryptocurrencies over XX timelines:
-View XX technical indicators:
-Comparison of performances of top XX cryptocurrencies over specific timelines
-Trader portfolio of cryptocurrencies
-Buy and sell top ten cryptocurrencies with provided XX virtual credits
-View portfolio performance data such as profit & loss
-View performances of other traders
+* Signin, login, logout
+* View graphical data of top XX cryptocurrencies over XX timelines:
+* View XX technical indicators:
+* Comparison of performances of top XX cryptocurrencies over specific timelines
+* Trader portfolio of cryptocurrencies
+* Buy and sell top ten cryptocurrencies with provided XX virtual credits
+* View portfolio performance data such as profit & loss
+* View performances of other traders
 
 ## ERD
 User, portfolio, transactions
 
 ## Model Schemas
-User:
-Portfolio:
-Transactions:
+* User:
+* Portfolio:
+* Transactions:
 
 ## Wireframes
-Graph page
-Portfolio & transactions page
+* Graph page
+* Portfolio & transactions page
 
 ### How to Use
 
@@ -52,13 +54,12 @@ Heroku link:
 
 ## Built With
 
-HTML, JS, CSS
-jQuery
-Ruby on Rails
-CSS Framework:
-
-APIs: Cryptocompare, Quandl
-Graphing Module: Graphicsmetrics
+* HTML, JS, CSS
+* jQuery
+* Ruby on Rails
+* CSS Framework:
+* APIs: Cryptocompare, Quandl
+* Graphing Module: Graphicsmetrics
 
 ## Workflow
 
