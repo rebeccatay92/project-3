@@ -21,7 +21,7 @@ A cryptocurrency analysis & trading tool.
 * View performances of other traders
 
 ## ERD
-User, portfolio, transactions
+![ERD](ERD.png)
 
 ## Model Schemas
 * User:
