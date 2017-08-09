@@ -24,9 +24,10 @@ A cryptocurrency analysis & trading tool.
 ![ERD](ERD.png)
 
 ## Model Schemas
-* User => name: email: password: credits_remaining: portfolio: transactions
-* Portfolio => currency: total_units: sell_price?: total_value?
-* Transactions => currency: type: buy/sell no_units: credits:
+* User => user_id: email: password: credits_remaining:
+* Currency => currency_id: currency_name:
+* Portfolio => portfolio_id: user_id: currency_id: total_units:  
+* Transactions => transactions_id: user_id: currency_id: type: units: amount/unit: amount:
 
 ## Wireframes
 * Graph page
