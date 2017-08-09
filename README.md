@@ -21,7 +21,7 @@ A cryptocurrency analysis & trading tool.
 * View performances of other traders
 
 ## ERD
-![ERD](ERD.png)
+![ERD](ERD-3.jpg)
 
 ## Model Schemas
 * User => user_id: email: password: credits_remaining:
@@ -33,9 +33,14 @@ A cryptocurrency analysis & trading tool.
 * Graph page
 * Portfolio & transactions page
 
-### How to Use
+## How to Use
 
 A step by step guide on how to install and use the project, for example if this is a game, how do we play it.
+
+
+## Challenges
+
+## Code highlights
 
 
 ```
@@ -48,10 +53,19 @@ More steps...
 until finished
 ```
 
+## Future Improvements
+
+## Workflow
+
+Task tracking: Trello
 
 ## Live Version
 
 Heroku link:
+
+
+
+
 
 ## Built With
 
@@ -62,9 +76,7 @@ Heroku link:
 * APIs: Cryptocompare, Quandl
 * Graphing Module: Graphicsmetrics
 
-## Workflow
 
-Task tracking: Trello
 
 ## Authors
 
