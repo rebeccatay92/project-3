@@ -5,22 +5,23 @@ $(document).on('ready page:load', function(event) {
   var timeDigit = 60
   var timeFrame = 'minute'
   var bufferPeriods = 50
-  var dataArr = []
+  // var dataArr = []
   var indicator1 = ''
   var indicator1data = []
   var indicator2 = ''
   var indicator2data = []
   /*------------------------------------------------*/
   // update chart based on selection changes
-  $('select').change(function() {
+  $('button').on('click', function() {
+    // console.log($(':selected'))
+    dataArr=[]
     currencySym = $(':selected')[0].id
     timeDigit = $(':selected')[1].id
     timeFrame = $(':selected')[1].className
     indicator1 = $(':selected')[2].id
     indicator2 = $(':selected')[3].id
     //which api to call. min/hr/day
-    // console.log($(':selected'))
-    // console.log(indicator1)
+
     totalTimePeriods = parseInt(timeDigit) + bufferPeriods - 1
     var histoQuery =`https://min-api.cryptocompare.com/data/histo${timeFrame}?tsym=USD&fsym=${currencySym}&limit=${totalTimePeriods}`
 
@@ -34,106 +35,49 @@ $(document).on('ready page:load', function(event) {
         e.value = e.close
       })
       //always chart the price
-      dataArr = [close]
+      dataArr.push(close)
 
-      if (indicator1 === 'SMA5') {
-        sma5 = JSON.parse(JSON.stringify(apidata)).splice(0)
-        for (i = 50; i < sma5.length; i++) {
-          var arr5periods = sma5.slice(i-5,i)
-          var sum = arr5periods.reduce(function(a,b) {
+      if (indicator1) {
+        var periods = indicator1.substring(3)
+        sma = JSON.parse(JSON.stringify(apidata)).splice(0)
+        for (i = 50; i < sma.length; i++) {
+          var periodsArr = sma.slice(i-periods,i)
+          var sum = periodsArr.reduce(function(a,b) {
             return {close: (a.close + b.close)}
           })
-          var avg = sum.close/5
-          sma5[i].value = avg
-          sma5[i].time = new Date(sma5[i].time * 1000)
+          var avg = sum.close/periods
+          sma[i].value = avg
+          sma[i].time = new Date(sma[i].time * 1000)
         }
-        indicator1data = sma5.splice(50)
-        dataArr[1] = indicator1data
-      } else if (indicator1 === 'SMA20') {
-        sma20 = JSON.parse(JSON.stringify(apidata)).splice(0)
-        for (i = 50; i < sma20.length; i++) {
-          var arr20periods = sma20.slice(i-20,i)
-          var sum = arr20periods.reduce(function(a,b) {
-            return {close: (a.close + b.close)}
-          })
-          var avg = sum.close/20
-          sma20[i].value = avg
-          sma20[i].time = new Date(sma20[i].time * 1000)
-        }
-        indicator1data = sma20.splice(50)
-        dataArr[1] = indicator1data
-      } else if (indicator1 === 'SMA50') {
-        sma50 = JSON.parse(JSON.stringify(apidata)).splice(0)
-        for (i = 50; i < sma50.length; i++) {
-          var arr50periods = sma50.slice(i-50,i)
-          var sum = arr50periods.reduce(function(a,b) {
-            return {close: (a.close + b.close)}
-          })
-          var avg = sum.close/50
-          sma50[i].value = avg
-          sma50[i].time = new Date(sma50[i].time * 1000)
-        }
-        indicator1data = sma50.splice(50)
-        dataArr[1] = indicator1data
-      } else {
-        indicator1data = []
-        dataArr.splice(1,1) //removes indicator1 line
+        indicator1data = sma.splice(50)
+        dataArr.push(indicator1data)
       }
 
-      if (indicator2 === 'SMA5') {
-        sma5 = JSON.parse(JSON.stringify(apidata)).splice(0)
-        for (i = 50; i < sma5.length; i++) {
-          var arr5periods = sma5.slice(i-5,i)
-          var sum = arr5periods.reduce(function(a,b) {
+      if (indicator2) {
+        var periods = indicator2.substring(3)
+        sma = JSON.parse(JSON.stringify(apidata)).splice(0)
+        for (i = 50; i < sma.length; i++) {
+          var periodsArr = sma.slice(i-periods,i)
+          var sum = periodsArr.reduce(function(a,b) {
             return {close: (a.close + b.close)}
           })
-          var avg = sum.close/5
-          sma5[i].value = avg
-          sma5[i].time = new Date(sma5[i].time * 1000)
+          var avg = sum.close/periods
+          sma[i].value = avg
+          sma[i].time = new Date(sma[i].time * 1000)
         }
-        indicator2data = sma5.splice(50)
-        dataArr[2] = indicator2data
-      } else if (indicator2 === 'SMA20') {
-        sma20 = JSON.parse(JSON.stringify(apidata)).splice(0)
-        for (i = 50; i < sma20.length; i++) {
-          var arr20periods = sma20.slice(i-20,i)
-          var sum = arr20periods.reduce(function(a,b) {
-            return {close: (a.close + b.close)}
-          })
-          var avg = sum.close/20
-          sma20[i].value = avg
-          sma20[i].time = new Date(sma20[i].time * 1000)
-        }
-        indicator2data = sma20.splice(50)
-        dataArr[2] = indicator2data
-      } else if (indicator2 === 'SMA50') {
-        sma50 = JSON.parse(JSON.stringify(apidata)).splice(0)
-        for (i = 50; i < sma50.length; i++) {
-          var arr50periods = sma50.slice(i-50,i)
-          var sum = arr50periods.reduce(function(a,b) {
-            return {close: (a.close + b.close)}
-          })
-          var avg = sum.close/50
-          sma50[i].value = avg
-          sma50[i].time = new Date(sma50[i].time * 1000)
-        }
-        indicator2data = sma50.splice(50)
-        dataArr[2] = indicator2data
-      } else {
-        indicator2data = []
-        dataArr.splice(2,1) //removes indicator2 line
+        indicator2data = sma.splice(50)
+        dataArr.push(indicator2data)
       }
 
-      // console.log(dataArr)
       plot()
 
-      // volume = JSON.parse(JSON.stringify(apidata)).splice(20)
-      // volume.forEach(function(e) {
-      //   e.time =  new Date(e.time * 1000)
-      //   e.value = e.volumeto
-      // })
-      // console.log(volume)
-      // plotVolume()
+      volume = JSON.parse(JSON.stringify(apidata)).splice(20)
+      volume.forEach(function(e) {
+        e.time =  new Date(e.time * 1000)
+        e.value = e.volumeto
+      })
+      console.log(volume)
+      plotVolume()
     })
   })
 
