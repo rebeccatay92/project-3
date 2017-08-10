@@ -10,8 +10,4 @@ def configure_permitted_parameters
   devise_parameter_sanitizer.permit(:sign_up, keys: [:name, :credits_remaining])
 end
 
-def application
-  @user_name = current_user.name
-end
-
 end
