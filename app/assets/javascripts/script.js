@@ -39,8 +39,8 @@ $(document).on('ready page:load', function(event) {
       if (indicator1 === 'SMA5') {
         sma5 = JSON.parse(JSON.stringify(apidata)).splice(0)
         for (i = 50; i < sma5.length; i++) {
-          var arr5days = sma5.slice(i-5,i)
-          var sum = arr5days.reduce(function(a,b) {
+          var arr5periods = sma5.slice(i-5,i)
+          var sum = arr5periods.reduce(function(a,b) {
             return {close: (a.close + b.close)}
           })
           var avg = sum.close/5
@@ -52,8 +52,8 @@ $(document).on('ready page:load', function(event) {
       } else if (indicator1 === 'SMA20') {
         sma20 = JSON.parse(JSON.stringify(apidata)).splice(0)
         for (i = 50; i < sma20.length; i++) {
-          var arr20days = sma20.slice(i-20,i)
-          var sum = arr20days.reduce(function(a,b) {
+          var arr20periods = sma20.slice(i-20,i)
+          var sum = arr20periods.reduce(function(a,b) {
             return {close: (a.close + b.close)}
           })
           var avg = sum.close/20
@@ -65,8 +65,8 @@ $(document).on('ready page:load', function(event) {
       } else if (indicator1 === 'SMA50') {
         sma50 = JSON.parse(JSON.stringify(apidata)).splice(0)
         for (i = 50; i < sma50.length; i++) {
-          var arr50days = sma50.slice(i-50,i)
-          var sum = arr50days.reduce(function(a,b) {
+          var arr50periods = sma50.slice(i-50,i)
+          var sum = arr50periods.reduce(function(a,b) {
             return {close: (a.close + b.close)}
           })
           var avg = sum.close/50
@@ -74,7 +74,6 @@ $(document).on('ready page:load', function(event) {
           sma50[i].time = new Date(sma50[i].time * 1000)
         }
         indicator1data = sma50.splice(50)
-        console.log(indicator1data)
         dataArr[1] = indicator1data
       } else {
         indicator1data = []
@@ -84,8 +83,8 @@ $(document).on('ready page:load', function(event) {
       if (indicator2 === 'SMA5') {
         sma5 = JSON.parse(JSON.stringify(apidata)).splice(0)
         for (i = 50; i < sma5.length; i++) {
-          var arr5days = sma5.slice(i-5,i)
-          var sum = arr5days.reduce(function(a,b) {
+          var arr5periods = sma5.slice(i-5,i)
+          var sum = arr5periods.reduce(function(a,b) {
             return {close: (a.close + b.close)}
           })
           var avg = sum.close/5
@@ -97,8 +96,8 @@ $(document).on('ready page:load', function(event) {
       } else if (indicator2 === 'SMA20') {
         sma20 = JSON.parse(JSON.stringify(apidata)).splice(0)
         for (i = 50; i < sma20.length; i++) {
-          var arr20days = sma20.slice(i-20,i)
-          var sum = arr20days.reduce(function(a,b) {
+          var arr20periods = sma20.slice(i-20,i)
+          var sum = arr20periods.reduce(function(a,b) {
             return {close: (a.close + b.close)}
           })
           var avg = sum.close/20
@@ -107,12 +106,11 @@ $(document).on('ready page:load', function(event) {
         }
         indicator2data = sma20.splice(50)
         dataArr[2] = indicator2data
-        console.log(indicator2data)
       } else if (indicator2 === 'SMA50') {
         sma50 = JSON.parse(JSON.stringify(apidata)).splice(0)
         for (i = 50; i < sma50.length; i++) {
-          var arr50days = sma50.slice(i-50,i)
-          var sum = arr50days.reduce(function(a,b) {
+          var arr50periods = sma50.slice(i-50,i)
+          var sum = arr50periods.reduce(function(a,b) {
             return {close: (a.close + b.close)}
           })
           var avg = sum.close/50
@@ -123,7 +121,7 @@ $(document).on('ready page:load', function(event) {
         dataArr[2] = indicator2data
       } else {
         indicator2data = []
-        dataArr.splice(2,1) //removes indicator1 line
+        dataArr.splice(2,1) //removes indicator2 line
       }
 
       // console.log(dataArr)
