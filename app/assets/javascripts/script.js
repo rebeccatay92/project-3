@@ -5,10 +5,7 @@ $(document).on('ready page:load', function(event) {
   var timeDigit = 60
   var timeFrame = 'minute'
   var bufferPeriods = 50
-  // var dataArr = []
-  var indicator1 = ''
   var indicator1data = []
-  var indicator2 = ''
   var indicator2data = []
   /*------------------------------------------------*/
   // update chart based on selection changes
@@ -71,12 +68,11 @@ $(document).on('ready page:load', function(event) {
 
       plot()
 
-      volume = JSON.parse(JSON.stringify(apidata)).splice(20)
+      volume = JSON.parse(JSON.stringify(apidata)).splice(50)
       volume.forEach(function(e) {
         e.time =  new Date(e.time * 1000)
         e.value = e.volumeto
       })
-      console.log(volume)
       plotVolume()
     })
   })
