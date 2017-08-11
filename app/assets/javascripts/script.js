@@ -40,10 +40,6 @@ $(document).on('ready page:load', function (event) {
         sma = JSON.parse(JSON.stringify(apidata)).splice(0)
         for (i = 50; i < sma.length; i++) {
           var periodsArr = sma.slice(i - periods, i)
-          // var sum = periodsArr.reduce(function(a,b) {
-          //   return {close: (a.close + b.close)}
-          // })
-          // var avg = sum.close/periods
           var avg = averageClose(periodsArr)
           sma[i].value = avg
           sma[i].time = new Date(sma[i].time * 1000)
@@ -57,10 +53,6 @@ $(document).on('ready page:load', function (event) {
         sma = JSON.parse(JSON.stringify(apidata)).splice(0)
         for (i = 50; i < sma.length; i++) {
           var periodsArr = sma.slice(i - periods, i)
-          // var sum = periodsArr.reduce(function(a,b) {
-          //   return {close: (a.close + b.close)}
-          // })
-          // var avg = sum.close/periods
           var avg = averageClose(periodsArr)
           sma[i].value = avg
           sma[i].time = new Date(sma[i].time * 1000)
@@ -77,10 +69,15 @@ $(document).on('ready page:load', function (event) {
           var avg = averageClose(periodsArr)
           var stdDev = standardDeviation(periodsArr)
 
-          bollingerLower[i].value = avg - 2 * stdDev
-          bollingerLower[i].time = new Date(bollingerLower[i].time * 1000)
+          if (indicator3 === 'BB(20,2)') {
+            bollingerLower[i].value = avg - 2 * stdDev
+            bollingerUpper[i].value = avg + 2 * stdDev
+          } else {
+            bollingerLower[i].value = avg - 2.5 * stdDev
+            bollingerUpper[i].value = avg + 2.5 * stdDev
+          }
 
-          bollingerUpper[i].value = avg + 2 * stdDev
+          bollingerLower[i].time = new Date(bollingerLower[i].time * 1000)
           bollingerUpper[i].time = new Date(bollingerUpper[i].time * 1000)
         }
         indicator3upper = bollingerUpper.splice(50)
