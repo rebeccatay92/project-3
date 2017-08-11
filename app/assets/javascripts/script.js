@@ -160,7 +160,7 @@ $(document).on('ready page:load', function (event) {
     var sumSqDiff = sqDiff.reduce(function (a, b) {
       return a + b
     })
-    var avgSqDiff = sumSqDiff / 20
+    var avgSqDiff = sumSqDiff / arrOfObjs.length
     var stdDev = Math.sqrt(avgSqDiff)
     return stdDev
   }
