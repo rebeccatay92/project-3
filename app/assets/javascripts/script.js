@@ -5,11 +5,9 @@ $(document).on('ready page:load', function (event) {
   var timeDigit = 60
   var timeFrame = 'minute'
   var bufferPeriods = 50
-  var indicator1data = []
-  var indicator2data = []
   /* ------------------------------------------------ */
   // update chart based on selection changes
-  $('button').on('click', function () {
+  $('#chart').on('click', function () {
     // console.log($(':selected'))
     dataArr = []
     currencySym = $(':selected')[0].id
