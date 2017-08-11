@@ -4,11 +4,36 @@
     <title>Project3</title>
     <%= csrf_meta_tags %>
 
-    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
   </head>
 
   <body>
+
+    <h1>KryptoKnight Beta</h1>
+    <h2>Navigation Bar</h2>
+    <ul class="nav navbar-nav">
+
+      <% if user_signed_in? %>
+        <p>Currently logged in as <i><%= current_user.name %></i></p>
+      <% end %>
+
+      <li><%=link_to "Home", home_path%></li>
+
+      <% if user_signed_in? %>
+        <li><%= link_to "Log Out ", destroy_user_session_path, method: :delete %></li>
+      <% else %>
+        <li><%=link_to "Log In", new_user_session_path %></li>
+        <li><%=link_to "Register", new_user_registration_path%></li>
+      <% end %>
+
+      <li><%=link_to "Analysis", analysis_path %></li>
+      <li><%=link_to "Portfolio", portfolio_path %></li>
+    </ul>
+
+    <p class="notice"><%= notice %></p>
+    <p class="alert"><%= alert %></p>
+
     <%= yield %>
   </body>
 </html>
