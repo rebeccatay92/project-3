@@ -1,8 +1,7 @@
 class StaticController < ApplicationController
-# before_action :authenticate_user!, only: [:about]
+  skip_before_action :authenticate_user!
 
   def home
   end
-
 
 end
