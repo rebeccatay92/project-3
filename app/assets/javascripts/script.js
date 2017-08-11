@@ -102,6 +102,8 @@ $(document).on('ready page:load', function (event) {
   /* ------------------------------------------------ */
   function plot () {
     // finding min.max value for y axis
+    // console.log(dataArr)
+
     closeSort = close.sort(function (a, b) {
       return a.value - b.value
     })
