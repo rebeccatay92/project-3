@@ -20,7 +20,7 @@ $(document).on('ready page:load', function (event) {
 
     totalTimePeriods = parseInt(timeDigit) + bufferPeriods - 1
     var histoQuery = `https://min-api.cryptocompare.com/data/histo${timeFrame}?tsym=USD&fsym=${currencySym}&limit=${totalTimePeriods}`
-
+    if (!currencySym) return
     $.get(histoQuery).done(function (x) {
       apidata = x.Data
 
