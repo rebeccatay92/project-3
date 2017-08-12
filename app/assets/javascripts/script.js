@@ -99,46 +99,54 @@ $(document).on('ready page:load', function (event) {
 
   /* ------------------------------------------------ */
   function plot () {
-
-    closeSort = close.sort(function (a, b) {
-      return a.value - b.value
+    var maxValues = []
+    dataArr.forEach(function(arrOfObjs) {
+      arrOfObjs.sort(function(a,b) {
+        return b.value - a.value
+      })
+      maxValues.push(arrOfObjs[0].value)
     })
+    maxValues.sort(function(a,b) {
+      return b - a
+    })
+    var maxY = maxValues[0]
 
     MG.data_graphic({
-      // title: 'Historical Price',
-      // description: 'Closing',
       data: dataArr,
       width: 1000,
       height: 500,
+      buffer: 0,
       target: '#graph',
       x_accessor: 'time',
       y_accessor: 'value',
       x_label: 'Time',
       y_label: 'USD',
       yax_format: d3.format('2'),
-      min_y: closeSort[0].value,
-      // sets axis min
-      max_y: closeSort[closeSort.length - 1].value,
+      yax_count: 5,
+      min_y_from_data: true,
+      max_y: maxY,
       area: false,
       aggregate_rollover: true
     })
   }
 
+
   function plotVolume () {
+    // var adi_baselines = [{value:50000, label:'testing baseline'}];
     MG.data_graphic({
-      // title: 'Historical Price',
-      // description: 'Closing',
       data: [volume],
       chart_type: 'histogram',
       binned: true,
       width: 1000,
       height: 200,
+      buffer: 0,
       target: '#volume',
       x_accessor: 'time',
+      x_axis: true,
       y_accessor: 'value',
       x_label: 'Time',
       y_label: 'Volume',
-      yax_format: d3.format('2'),
+      // baselines: adi_baselines,
       aggregate_rollover: true
     })
   }
