@@ -128,7 +128,8 @@ $(document).on('ready page:load', function (event) {
       max_y: maxY,
       area: false,
       aggregate_rollover: true,
-      legend: ['Closing', 'Indicator 1', 'Indicator 2', 'Lower Bound', 'Upper Bound']
+      legend: ['Closing', 'Indicator 1', 'Indicator 2', 'Lower Bound', 'Upper Bound'],
+      colors: ['black', 'green', 'blue', 'red', 'red']
     })
   }
 
