@@ -1,9 +1,6 @@
 $(document).on('ready page:load', function (event) {
   console.log('javascript is running...')
   /* ------------------------------------------------ */
-  var currencySym = 'BTC'
-  var timeDigit = 60
-  var timeFrame = 'minute'
   var bufferPeriods = 50
   /* ------------------------------------------------ */
   // update chart based on selection changes
@@ -11,88 +8,41 @@ $(document).on('ready page:load', function (event) {
     // console.log($(':selected'))
     dataArr = []
     currencySym = $(':selected')[0].id
-    timeDigit = $(':selected')[1].id
+    timeDigit = parseInt($(':selected')[1].id)
     timeFrame = $(':selected')[1].className
     indicator1 = $(':selected')[2].id
     indicator2 = $(':selected')[3].id
     indicator3 = $(':selected')[4].id
-    // which api to call. min/hr/day
+
     if (!currencySym) return
 
-    totalTimePeriods = parseInt(timeDigit) + bufferPeriods - 1
+    totalTimePeriods = timeDigit + bufferPeriods - 1
     var histoQuery = `https://min-api.cryptocompare.com/data/histo${timeFrame}?tsym=USD&fsym=${currencySym}&limit=${totalTimePeriods}`
 
     $.get(histoQuery).done(function (x) {
       apidata = x.Data
 
-      // for prices remove day -50 to 0
+      // deep clone the array of objects
+      // for prices remove day -50 to 0 (for calculating avgs)
       close = JSON.parse(JSON.stringify(apidata)).splice(50)
       close.forEach(function (e) {
         e.value = e.close
       })
-      // always chart the price
       dataArr.push(close)
 
       volume = JSON.parse(JSON.stringify(apidata)).splice(50)
-      console.log(volume)
       volume.forEach(function (e) {
         e.value = e.volumeto
       })
       plotVolume()
 
       if (indicator1) {
-        var periods = parseInt(indicator1.substring(3))
-        var type = indicator1.substring(0,3)
-        sma = JSON.parse(JSON.stringify(apidata)).splice(0)
-        ema = JSON.parse(JSON.stringify(apidata)).splice(0)
-
-          for (i = 50; i < sma.length; i++) {
-            var periodsArr = sma.slice(i - periods, i)
-            var avg = averageClose(periodsArr)
-            sma[i].value = avg
-          }
-
-          if (type === 'SMA') {
-            indicator1data = sma.splice(50)
-          } else if (type === 'EMA') {
-            ema[50].value = sma[50].value //first ema value is equal to sma
-            var multiplier = 2 / (periods + 1)
-
-            // ema formula, where starting ema[50] = sma value
-            for (i = 51; i < ema.length; i ++) {
-              ema[i].value = (ema[i].close - ema[i - 1].value) * multiplier + ema[i - 1].value
-            }
-            indicator1data = ema.splice(50)
-          }
-
+        var indicator1data = movingAvgs(indicator1)
         dataArr.push(indicator1data)
       } else dataArr.push([{}])
 
       if (indicator2) {
-        var periods = parseInt(indicator2.substring(3))
-        var type = indicator2.substring(0,3)
-        sma = JSON.parse(JSON.stringify(apidata)).splice(0)
-        ema = JSON.parse(JSON.stringify(apidata)).splice(0)
-
-          for (i = 50; i < sma.length; i++) {
-            var periodsArr = sma.slice(i - periods, i)
-            var avg = averageClose(periodsArr)
-            sma[i].value = avg
-          }
-
-          if (type === 'SMA') {
-            indicator2data = sma.splice(50)
-          } else if (type === 'EMA') {
-            ema[50].value = sma[50].value //first ema value is equal to sma
-            var multiplier = 2 / (periods + 1)
-
-            // ema formula, where starting ema[50] = sma value
-            for (i = 51; i < ema.length; i ++) {
-              ema[i].value = (ema[i].close - ema[i - 1].value) * multiplier + ema[i - 1].value
-            }
-            indicator2data = ema.splice(50)
-          }
-
+        var indicator2data = movingAvgs(indicator2)
         dataArr.push(indicator2data)
       } else dataArr.push([{}])
 
@@ -118,27 +68,77 @@ $(document).on('ready page:load', function (event) {
       } else dataArr.push([{}])
 
       plot()
-
     })
   })
 
   /* ------------------------------------------------ */
+
+  function movingAvgs (indicator) {
+    var periods = parseInt(indicator.substring(3))
+    var type = indicator.substring(0, 3)
+    sma = JSON.parse(JSON.stringify(apidata)).splice(0)
+    ema = JSON.parse(JSON.stringify(apidata)).splice(0)
+
+    for (i = 50; i < sma.length; i++) {
+      var periodsArr = sma.slice(i - periods, i)
+      var avg = averageClose(periodsArr)
+      sma[i].value = avg
+    }
+
+    if (type === 'SMA') {
+      indicatordata = sma.splice(50)
+    } else {
+      ema[50].value = sma[50].value
+      var multiplier = 2 / (periods + 1)
+        // ema formula, where starting ema[50] = sma value
+      for (i = 51; i < ema.length; i++) {
+        ema[i].value = (ema[i].close - ema[i - 1].value) * multiplier + ema[i - 1].value
+      }
+      indicatordata = ema.splice(50)
+    }
+
+    return indicatordata
+  }
+
+  function standardDeviation (arrOfObjs) {
+    var avg = averageClose(arrOfObjs)
+    var sqDiff = []
+    arrOfObjs.forEach(function (e) {
+      var diff = e.close - avg
+      sqDiff.push(diff * diff)
+    })
+    var sumSqDiff = sqDiff.reduce(function (a, b) {
+      return a + b
+    })
+    var avgSqDiff = sumSqDiff / arrOfObjs.length
+    var stdDev = Math.sqrt(avgSqDiff)
+    return stdDev
+  }
+
+  function averageClose (arrOfObjs) {
+    var sum = arrOfObjs.reduce(function (a, b) {
+      return {close: (a.close + b.close)}
+    })
+    var avg = sum.close / arrOfObjs.length
+    return avg
+  }
+
   function plot () {
     var maxValues = []
-    dataArr.forEach(function(arrOfObjs) {
+    dataArr.forEach(function (arrOfObjs) {
       arrOfObjs.forEach(function (e) {
         e.time = new Date(e.time * 1000)
       })
 
-      arrOfObjs.sort(function(a,b) {
+      arrOfObjs.sort(function (a, b) {
         return b.value - a.value
       })
-      maxValues.push(arrOfObjs[0].value)
+      maxValues.push(arrOfObjs[0].value) //pushing max for each line
     })
-    maxValues.sort(function(a,b) {
+    maxValues.sort(function (a, b) {
       return b - a
     })
-    var maxY = maxValues[0]
+    var maxY = maxValues[0] //finding max of all lines
 
     MG.data_graphic({
       data: dataArr,
@@ -162,9 +162,8 @@ $(document).on('ready page:load', function (event) {
     })
   }
 
-
   function plotVolume () {
-    volume.forEach(function(e) {
+    volume.forEach(function (e) {
       e.time = new Date(e.time * 1000)
     })
     // var adi_baselines = [{value:50000, label:'testing baseline'}];
@@ -186,43 +185,19 @@ $(document).on('ready page:load', function (event) {
     })
   }
 
-  function standardDeviation (arrOfObjs) {
-    var avg = averageClose(arrOfObjs)
-    var sqDiff = []
-    arrOfObjs.forEach(function (e) {
-      var diff = e.close - avg
-      sqDiff.push(diff * diff)
-    })
-    var sumSqDiff = sqDiff.reduce(function (a, b) {
-      return a + b
-    })
-    var avgSqDiff = sumSqDiff / arrOfObjs.length
-    var stdDev = Math.sqrt(avgSqDiff)
-    return stdDev
-  }
-
-// finding avg in array of objects (closing price)
-  function averageClose (arrOfObjs) {
-    var sum = arrOfObjs.reduce(function (a, b) {
-      return {close: (a.close + b.close)}
-    })
-    var avg = sum.close / arrOfObjs.length
-    return avg
-  }
   /* ------------------------------------------------ */
   var currentPriceApi = `https://min-api.cryptocompare.com/data/pricemulti?fsyms=BTC,ETH,XRP,LTC,DASH&tsyms=USD`
 
   function getCurrentPrice () {
     $.get(currentPriceApi).done(function (data) {
-      // console.log(data)
       for (var key in data) {
-        // console.log(key) //coin symbol
-        // console.log(data[key].USD) //price
         $(`#live${key}`).text(`${key}: ${data[key].USD}`)
       }
-    }) // close api call
-  } // close fn
+    })
+  }
+
   getCurrentPrice()
+
   setInterval(getCurrentPrice, 10000)
   /* ------------------------------------------------ */
 }) // close doc.ready
