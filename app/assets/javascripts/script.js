@@ -74,15 +74,33 @@ $(document).on('ready page:load', function (event) {
       } else dataArr.push([{}])
 
       if (indicator2) {
-        var periods = indicator2.substring(3)
+        var periods = parseInt(indicator2.substring(3))
+        var type = indicator2.substring(0,3)
         sma = JSON.parse(JSON.stringify(apidata)).splice(0)
-        for (i = 50; i < sma.length; i++) {
-          var periodsArr = sma.slice(i - periods, i)
-          var avg = averageClose(periodsArr)
-          sma[i].value = avg
-          sma[i].time = new Date(sma[i].time * 1000)
-        }
-        indicator2data = sma.splice(50)
+        ema = JSON.parse(JSON.stringify(apidata)).splice(0)
+
+          for (i = 50; i < sma.length; i++) {
+            var periodsArr = sma.slice(i - periods, i)
+            var avg = averageClose(periodsArr)
+            sma[i].value = avg
+            sma[i].time = new Date(sma[i].time * 1000)
+          }
+
+          if (type === 'SMA') {
+            indicator2data = sma.splice(50)
+          } else if (type === 'EMA') {
+            ema[50].value = sma[50].value //first ema value is equal to sma
+            ema[50].time = new Date(ema[50].time * 1000)
+            var multiplier = 2 / (periods + 1)
+
+            // ema formula, where starting ema[50] = sma value
+            for (i = 51; i < ema.length; i ++) {
+              ema[i].value = (ema[i].close - ema[i - 1].value) * multiplier + ema[i - 1].value
+              ema[i].time = new Date(ema[i].time * 1000)
+            }
+            indicator2data = ema.splice(50)
+          }
+
         dataArr.push(indicator2data)
       } else dataArr.push([{}])
 
