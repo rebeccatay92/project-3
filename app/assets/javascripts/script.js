@@ -28,7 +28,6 @@ $(document).on('ready page:load', function (event) {
       // for prices remove day -50 to 0
       close = JSON.parse(JSON.stringify(apidata)).splice(50)
       close.forEach(function (e) {
-        e.time = new Date(e.time * 1000)
         e.value = e.close
       })
       // always chart the price
@@ -37,7 +36,6 @@ $(document).on('ready page:load', function (event) {
       volume = JSON.parse(JSON.stringify(apidata)).splice(50)
       console.log(volume)
       volume.forEach(function (e) {
-        e.time = new Date(e.time * 1000)
         e.value = e.volumeto
       })
       plotVolume()
@@ -52,20 +50,17 @@ $(document).on('ready page:load', function (event) {
             var periodsArr = sma.slice(i - periods, i)
             var avg = averageClose(periodsArr)
             sma[i].value = avg
-            sma[i].time = new Date(sma[i].time * 1000)
           }
 
           if (type === 'SMA') {
             indicator1data = sma.splice(50)
           } else if (type === 'EMA') {
             ema[50].value = sma[50].value //first ema value is equal to sma
-            ema[50].time = new Date(ema[50].time * 1000)
             var multiplier = 2 / (periods + 1)
 
             // ema formula, where starting ema[50] = sma value
             for (i = 51; i < ema.length; i ++) {
               ema[i].value = (ema[i].close - ema[i - 1].value) * multiplier + ema[i - 1].value
-              ema[i].time = new Date(ema[i].time * 1000)
             }
             indicator1data = ema.splice(50)
           }
@@ -83,20 +78,17 @@ $(document).on('ready page:load', function (event) {
             var periodsArr = sma.slice(i - periods, i)
             var avg = averageClose(periodsArr)
             sma[i].value = avg
-            sma[i].time = new Date(sma[i].time * 1000)
           }
 
           if (type === 'SMA') {
             indicator2data = sma.splice(50)
           } else if (type === 'EMA') {
             ema[50].value = sma[50].value //first ema value is equal to sma
-            ema[50].time = new Date(ema[50].time * 1000)
             var multiplier = 2 / (periods + 1)
 
             // ema formula, where starting ema[50] = sma value
             for (i = 51; i < ema.length; i ++) {
               ema[i].value = (ema[i].close - ema[i - 1].value) * multiplier + ema[i - 1].value
-              ema[i].time = new Date(ema[i].time * 1000)
             }
             indicator2data = ema.splice(50)
           }
@@ -119,9 +111,6 @@ $(document).on('ready page:load', function (event) {
             bollingerLower[i].value = avg - 2.5 * stdDev
             bollingerUpper[i].value = avg + 2.5 * stdDev
           }
-
-          bollingerLower[i].time = new Date(bollingerLower[i].time * 1000)
-          bollingerUpper[i].time = new Date(bollingerUpper[i].time * 1000)
         }
         indicator3upper = bollingerUpper.splice(50)
         indicator3lower = bollingerLower.splice(50)
@@ -137,6 +126,10 @@ $(document).on('ready page:load', function (event) {
   function plot () {
     var maxValues = []
     dataArr.forEach(function(arrOfObjs) {
+      arrOfObjs.forEach(function (e) {
+        e.time = new Date(e.time * 1000)
+      })
+
       arrOfObjs.sort(function(a,b) {
         return b.value - a.value
       })
@@ -171,6 +164,9 @@ $(document).on('ready page:load', function (event) {
 
 
   function plotVolume () {
+    volume.forEach(function(e) {
+      e.time = new Date(e.time * 1000)
+    })
     // var adi_baselines = [{value:50000, label:'testing baseline'}];
     MG.data_graphic({
       data: volume,
