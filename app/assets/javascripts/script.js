@@ -7,7 +7,7 @@ $(document).on('ready page:load', function (event) {
   var bufferPeriods = 50
   /* ------------------------------------------------ */
   // update chart based on selection changes
-  $('#chart').on('click', function () {
+  $('select').on('change', function () {
     // console.log($(':selected'))
     dataArr = []
     currencySym = $(':selected')[0].id
@@ -44,7 +44,7 @@ $(document).on('ready page:load', function (event) {
         }
         indicator1data = sma.splice(50)
         dataArr.push(indicator1data)
-      }
+      } else dataArr.push([{}])
 
       if (indicator2) {
         var periods = indicator2.substring(3)
@@ -57,7 +57,7 @@ $(document).on('ready page:load', function (event) {
         }
         indicator2data = sma.splice(50)
         dataArr.push(indicator2data)
-      }
+      } else dataArr.push([{}])
 
       if (indicator3) {
         var bollingerLower = JSON.parse(JSON.stringify(apidata)).splice(0)
@@ -81,7 +81,7 @@ $(document).on('ready page:load', function (event) {
         indicator3upper = bollingerUpper.splice(50)
         indicator3lower = bollingerLower.splice(50)
         dataArr.push(indicator3lower, indicator3upper)
-      }
+      } else dataArr.push([{}])
 
       plot()
 
