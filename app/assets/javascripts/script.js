@@ -17,10 +17,11 @@ $(document).on('ready page:load', function (event) {
     indicator2 = $(':selected')[3].id
     indicator3 = $(':selected')[4].id
     // which api to call. min/hr/day
+    if (!currencySym) return
 
     totalTimePeriods = parseInt(timeDigit) + bufferPeriods - 1
     var histoQuery = `https://min-api.cryptocompare.com/data/histo${timeFrame}?tsym=USD&fsym=${currencySym}&limit=${totalTimePeriods}`
-    if (!currencySym) return
+
     $.get(histoQuery).done(function (x) {
       apidata = x.Data
 
@@ -32,6 +33,14 @@ $(document).on('ready page:load', function (event) {
       })
       // always chart the price
       dataArr.push(close)
+
+      volume = JSON.parse(JSON.stringify(apidata)).splice(50)
+      console.log(volume)
+      volume.forEach(function (e) {
+        e.time = new Date(e.time * 1000)
+        e.value = e.volumeto
+      })
+      plotVolume()
 
       if (indicator1) {
         var periods = indicator1.substring(3)
@@ -85,24 +94,15 @@ $(document).on('ready page:load', function (event) {
 
       plot()
 
-      volume = JSON.parse(JSON.stringify(apidata)).splice(50)
-      volume.forEach(function (e) {
-        e.time = new Date(e.time * 1000)
-        e.value = e.volumeto
-      })
-      plotVolume()
     })
   })
 
   /* ------------------------------------------------ */
   function plot () {
-    // finding min.max value for y axis
-    // console.log(dataArr)
 
     closeSort = close.sort(function (a, b) {
       return a.value - b.value
     })
-    // console.log(closeSort)
 
     MG.data_graphic({
       // title: 'Historical Price',
@@ -138,11 +138,7 @@ $(document).on('ready page:load', function (event) {
       y_accessor: 'value',
       x_label: 'Time',
       y_label: 'Volume',
-      // yax_format: d3.format('2'),
-      min_y_from_data: true,
-      // min_y: volumeSort[0].value,
-      // sets axis min
-      // max_y: volumeSort[volumeSort.length - 1].value,
+      yax_format: d3.format('2'),
       aggregate_rollover: true
     })
   }
