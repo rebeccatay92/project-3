@@ -116,6 +116,7 @@ $(document).on('ready page:load', function (event) {
       width: 1000,
       height: 500,
       buffer: 0,
+      right: 100,
       target: '#graph',
       x_accessor: 'time',
       y_accessor: 'value',
@@ -126,7 +127,8 @@ $(document).on('ready page:load', function (event) {
       min_y_from_data: true,
       max_y: maxY,
       area: false,
-      aggregate_rollover: true
+      aggregate_rollover: true,
+      legend: ['Closing', 'Indicator 1', 'Indicator 2', 'Lower Bound', 'Upper Bound']
     })
   }
 
@@ -134,7 +136,7 @@ $(document).on('ready page:load', function (event) {
   function plotVolume () {
     // var adi_baselines = [{value:50000, label:'testing baseline'}];
     MG.data_graphic({
-      data: [volume],
+      data: volume,
       chart_type: 'histogram',
       binned: true,
       width: 1000,
