@@ -32,8 +32,9 @@ $(document).on('ready page:load', function (event) {
 
       volume = JSON.parse(JSON.stringify(apidata)).splice(50)
       volume.forEach(function (e) {
-        e.value = e.volumeto
+        e.value = e.volumefrom
       })
+      console.log(volume)
       plotVolume()
 
       if (indicator1) {
@@ -155,7 +156,8 @@ $(document).on('ready page:load', function (event) {
       max_y: maxY,
       legend: ['Closing', 'Indicator 1', 'Indicator 2', 'Lower Bound', 'Upper Bound'],
       colors: ['black', 'green', 'blue', 'red', 'red'],
-      aggregate_rollover: true
+      aggregate_rollover: true,
+      decimals: 4
     })
   }
 
@@ -171,9 +173,9 @@ $(document).on('ready page:load', function (event) {
       binned: true,
       width: 1000,
       height: 200,
+      right: 100,
       target: '#volume',
       x_accessor: 'time',
-      x_axis: true,
       y_accessor: 'value',
       x_label: 'Time',
       y_label: 'Volume',
