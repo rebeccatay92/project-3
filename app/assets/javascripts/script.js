@@ -129,7 +129,6 @@ $(document).on('ready page:load', function (event) {
       arrOfObjs.forEach(function (e) {
         e.time = new Date(e.time * 1000)
       })
-
       arrOfObjs.sort(function (a, b) {
         return b.value - a.value
       })
@@ -144,7 +143,6 @@ $(document).on('ready page:load', function (event) {
       data: dataArr,
       width: 1000,
       height: 500,
-      buffer: 0,
       right: 100,
       target: '#graph',
       x_accessor: 'time',
@@ -155,10 +153,9 @@ $(document).on('ready page:load', function (event) {
       yax_count: 5,
       min_y_from_data: true,
       max_y: maxY,
-      area: false,
-      aggregate_rollover: true,
       legend: ['Closing', 'Indicator 1', 'Indicator 2', 'Lower Bound', 'Upper Bound'],
-      colors: ['black', 'green', 'blue', 'red', 'red']
+      colors: ['black', 'green', 'blue', 'red', 'red'],
+      aggregate_rollover: true
     })
   }
 
@@ -166,6 +163,7 @@ $(document).on('ready page:load', function (event) {
     volume.forEach(function (e) {
       e.time = new Date(e.time * 1000)
     })
+
     // var adi_baselines = [{value:50000, label:'testing baseline'}];
     MG.data_graphic({
       data: volume,
@@ -173,15 +171,13 @@ $(document).on('ready page:load', function (event) {
       binned: true,
       width: 1000,
       height: 200,
-      buffer: 0,
       target: '#volume',
       x_accessor: 'time',
       x_axis: true,
       y_accessor: 'value',
       x_label: 'Time',
       y_label: 'Volume',
-      // baselines: adi_baselines,
-      aggregate_rollover: true
+      // baselines: adi_baselines
     })
   }
 
