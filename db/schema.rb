@@ -34,7 +34,7 @@ ActiveRecord::Schema.define(version: 20170809165939) do
   create_table "transactions", force: :cascade do |t|
     t.bigint "user_id"
     t.bigint "currency_id"
-    t.integer "type"
+    t.integer "txn_type"
     t.decimal "units"
     t.decimal "amount_unit"
     t.datetime "created_at", null: false
