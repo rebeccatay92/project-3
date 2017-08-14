@@ -1,12 +1,9 @@
 class TransactionsController < ApplicationController
 
-
 def create
   render json: params
 
-
-
-new_transaction = Transaction.new
+  new_transaction = Transaction.new
   new_transaction.user_id = current_user[:id]
   new_transaction.currency_id = params[:transaction][:currency_id]
   new_transaction.txn_type = params[:transaction][:txn_type]
@@ -41,20 +38,10 @@ new_transaction = Transaction.new
       update_portfolio.save
 
       #code
-
-
     end
-
-
-
+    
     end
-
-
-
   end
-
-
-
 
   # redirect_to portfolios_path
 
