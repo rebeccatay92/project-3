@@ -24,11 +24,14 @@ class PortfoliosController < ApplicationController
 
 
 
-@hash_portfolios = []
+@unit_price = []
+@portfolio_value = []
 
 @price.each_with_index do | price, index |
   if @user_portfolio[index]
-    @hash_portfolios << price[1]['USD'] * @user_portfolio[index][:total_units]
+    @unit_price << price[1]['USD']
+
+    @portfolio_value << price[1]['USD'] * @user_portfolio[index][:total_units]
   end
 end
 
