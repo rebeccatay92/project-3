@@ -162,6 +162,7 @@ $(document).on('ready page:load', function (event) {
       y_label: 'USD',
       yax_format: d3.format('2'),
       yax_count: 5,
+      y_extended_ticks: true,
       min_y_from_data: true,
       max_y: maxY,
       legend: legendArr,
