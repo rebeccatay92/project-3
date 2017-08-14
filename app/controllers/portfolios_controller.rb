@@ -19,13 +19,14 @@ class PortfoliosController < ApplicationController
 @priceDASH= price["DASH"]["USD"]
 
 @new_transaction = Transaction.new
+@all_currencies = Currency.all
 
 
 end
 
 def create
 
-render json :params
+render html: wwe
 
 
 

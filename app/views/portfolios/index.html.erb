@@ -5,7 +5,24 @@
 <h1>PORTFOLIO HERE</h1>
 
 <!-- <%#= @price["BTC"]["USD"] %> -->
-<%= @priceBTC*1.01.round(2) %>
+<% @all_currencies.each do |currency| %>
+
+<ul>
+  <li>
+    <%= currency.name  %>
+    <%#= @price+currency.name %>
+<!-- <%#= `@price` + ''  %> -->
+  </li>
+</ul>
+
+
+
+
+
+<% end %>
+
+
+<%#= `@price#{BTC}`*1.01.round(2) %>
 
 <h1>Other Currencies</h1>
 
@@ -13,6 +30,7 @@
 <h4>Bitcoin Buy Price: <%= '%.2f' % (@priceBTC*1.01) %> </h4>
 <%= form_for @new_transaction do |f| %>
   <%= f.hidden_field :currency_id, value:1 %>
+  <%= f.hidden_field :amount_unit, value:'%.2f' % (@priceBTC*1.01) %>
   <%= f.label :Units %>
   <%= f.number_field :units, :class => 'text_field', :step => 0.01, :min => 0.01, :max => '%.2f'% (50000/@priceBTC) %>
   <%= f.submit "Buy" %>
@@ -22,6 +40,7 @@
 <h4>Ethereum Buy Price: <%= '%.2f' % (@priceETH*1.01) %> </h4>
 <%= form_for @new_transaction do |f| %>
 <%= f.hidden_field :currency_id, value:2 %>
+
   <%= f.label :Units %>
   <%= f.number_field :units, :class => 'text_field', :step => 0.01, :min => 0.01, :max => '%.2f'% (50000/@priceETH) %>
   <%= f.submit "Buy" %>
