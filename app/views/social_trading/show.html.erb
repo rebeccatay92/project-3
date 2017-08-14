@@ -1,0 +1,26 @@
+<h1>Active Trader: <%= @active_trader.name %> (Rank #<%= @trader_ranking %>)</h1>
+
+<table id="positionsTable" class="display compact">
+  <thead>
+		<tr>
+      <th>Bought or sold</th>
+			<th>Currency</th>
+			<th>Number of units</th>
+      <th>Unit price</th>
+      <th>Transaction date</th>
+		</tr>
+	</thead>
+
+  <tbody id="tableBody">
+		<% @all_past90days_transactions.each_with_index do |transaction, index| %>
+			<tr id="">
+        <td><%= transaction[0] %></td>
+        <td><%= transaction[1] %></td>
+        <td><%= transaction[2] %></td>
+				<td><%= transaction[3] %></td>
+        <td><%= transaction[4] %></td>
+			</tr>
+		<% end %>
+	</tbody>
+
+</table>
