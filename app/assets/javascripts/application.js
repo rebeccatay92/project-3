@@ -11,7 +11,8 @@
 // about supported directives.
 //
 //= require rails-ujs
-//= require jquery
-//= require metrics-graphics-rails
 //= require turbolinks
+//= require metrics-graphics-rails
+//= require jquery
+//= require jquery-readyselector
 //= require_tree .
