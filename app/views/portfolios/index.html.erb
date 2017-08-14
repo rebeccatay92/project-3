@@ -1,0 +1,97 @@
+<%#= link_to "Home", root_path %>
+<%#= link_to "Analyze", analysis_path %>
+<%#= link_to "Portfolio", portfolio_path %>
+
+<h1>PORTFOLIO HERE</h1>
+
+<% @user_portfolio.each_with_index do |user, index| %>
+
+<ul>
+  <h3><%= user.currency.name %></h3>
+  <h3>Total Price: <%= @hash_portfolios[index] %></h3>
+  <h3>Total Units: <%= user.total_units %></h3>
+  <h3><%#= user.inspect %></h3>
+  <h3><%= user.currency.currency_symbol%></h3>
+  <h3><%#= user.currency.currency_symbol.is_a?(String) %></h3>
+
+<!-- <%#= instance_variable_get((“@price” + currency[:currency_symbol] ).intern) %>
+</ul> -->
+
+<% end %>
+
+
+
+
+
+
+
+
+
+<%#= `@price#{BTC}`*1.01.round(2) %>
+
+<h1>Other Currencies</h1>
+
+<h3 id='liveBTC'>Bitcoin <%= '%.2f' % @priceBTC %></h3>
+<h4>Bitcoin Buy Price: <%= '%.2f' % (@priceBTC*1.01) %> </h4>
+<%= form_for @new_transaction do |f| %>
+  <%= f.hidden_field :currency_id, value:1 %>
+  <%= f.hidden_field :amount_unit, value:'%.2f' % (@priceBTC*1.01) %>
+  <%= f.hidden_field :txn_type, value: 1 %>
+  <%= f.label :Units %>
+  <%= f.number_field :units, :class => 'text_field', :step => 0.01, :min => 0.01, :max => '%.2f'% (50000/@priceBTC) %>
+  <%= f.submit "Buy" %>
+<% end %>
+
+<h3 id='liveETH'>Ethereum <%= '%.2f' % @priceETH %></h3>
+<h4>Ethereum Buy Price: <%= '%.2f' % (@priceETH*1.01) %> </h4>
+<%= form_for @new_transaction do |f| %>
+<%= f.hidden_field :currency_id, value:2 %>
+<%= f.hidden_field :amount_unit, value:'%.2f' % (@priceETH*1.01) %>
+<%= f.hidden_field :txn_type, value: 1 %>
+
+
+
+  <%= f.label :Units %>
+  <%= f.number_field :units, :class => 'text_field', :step => 0.01, :min => 0.01, :max => '%.2f'% (50000/@priceETH) %>
+  <%= f.submit "Buy" %>
+<% end %>
+
+<h3 id='liveXRP'>Ripple <%= '%.3f' % @priceXRP %></h3>
+<h4>Ripple Buy Price: <%= '%.3f' % (@priceXRP*1.01) %> </h4>
+<%= form_for @new_transaction do |f| %>
+<%= f.hidden_field :currency_id, value:3 %>
+  <%= f.label :Units %>
+  <%= f.number_field :units, :class => 'text_field', :step => 0.01, :min => '%.2f'% (1/@priceXRP), :max => '%.2f'% (50000/@priceXRP) %>
+  <%= f.submit "Buy" %>
+<% end %>
+
+<h3 id='liveLTC'>Litecoin <%= '%.2f' % @priceLTC %></h3>
+<h4>Litecoin Buy Price: <%= '%.2f' % (@priceLTC*1.01) %> </h4>
+<%= form_for @new_transaction do |f| %>
+<%= f.hidden_field :currency_id, value:4 %>
+  <%= f.label :Units %>
+  <%= f.number_field :units, :class => 'text_field', :step => 0.01, :min => '%.2f'% (1/@priceLTC), :max => '%.2f'% (50000/@priceLTC) %>
+  <%= f.submit "Buy" %>
+<% end %>
+
+<h3 id='liveDASH'>Dash <%= '%.2f' % @priceDASH %></h3>
+<h4>Dash Buy Price: <%= '%.2f' % (@priceDASH*1.01) %> </h4>
+<%= form_for @new_transaction do |f| %>
+<%= f.hidden_field :currency_id, value:5 %>
+  <%= f.label :Units  %>
+  <%= f.number_field :units, :class => 'text_field', :step => 0.01, :min => 0.01, :max => '%.2f'% (50000/@priceDASH) %>
+  <%= f.submit "Buy" %>
+<% end %>
+
+
+<br><br><br><br><br>
+
+
+
+
+<!-- <h1>Other Currencies</h1>
+<h3 id='liveBTC'>BTC </h3>
+<h3 id='liveETH'>ETH </h3>
+<h3 id='liveXRP'>XRP </h3>
+<h3 id='liveLTC'>LTC </h3>
+<h3 id='liveDASH'>DASH </h3> -->
