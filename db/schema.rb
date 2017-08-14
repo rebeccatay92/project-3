@@ -38,6 +38,7 @@ ActiveRecord::Schema.define(version: 20170809165939) do
     t.integer "txn_type"
     t.decimal "units"
     t.decimal "amount_unit"
+    t.decimal "txn_amt"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["currency_id"], name: "index_transactions_on_currency_id"

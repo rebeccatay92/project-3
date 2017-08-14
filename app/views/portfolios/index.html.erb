@@ -4,22 +4,27 @@
 
 <h1>PORTFOLIO HERE</h1>
 
-<!-- <%#= @price["BTC"]["USD"] %> -->
-<% @all_currencies.each do |currency| %>
+<% @user_portfolio.each_with_index do |user, index| %>
 
 <ul>
-  <li>
-    <%= currency.name  %>
-    <%#= @price+currency.name %>
-<!-- <%#= `@price` + ''  %> -->
-  </li>
-</ul>
+  <h3><%= user.currency.name %></h3>
+  <h3>Total Price: <%= @hash_portfolios[index] %></h3>
+  <h3>Total Units: <%= user.total_units %></h3>
+  <h3><%#= user.inspect %></h3>
+  <h3><%= user.currency.currency_symbol%></h3>
+  <h3><%#= user.currency.currency_symbol.is_a?(String) %></h3>
 
-
-
-
+<!-- <%#= instance_variable_get((“@price” + currency[:currency_symbol] ).intern) %>
+</ul> -->
 
 <% end %>
+
+
+
+
+
+
+
 
 
 <%#= `@price#{BTC}`*1.01.round(2) %>
@@ -31,6 +36,7 @@
 <%= form_for @new_transaction do |f| %>
   <%= f.hidden_field :currency_id, value:1 %>
   <%= f.hidden_field :amount_unit, value:'%.2f' % (@priceBTC*1.01) %>
+  <%= f.hidden_field :txn_type, value: 1 %>
   <%= f.label :Units %>
   <%= f.number_field :units, :class => 'text_field', :step => 0.01, :min => 0.01, :max => '%.2f'% (50000/@priceBTC) %>
   <%= f.submit "Buy" %>
@@ -40,6 +46,10 @@
 <h4>Ethereum Buy Price: <%= '%.2f' % (@priceETH*1.01) %> </h4>
 <%= form_for @new_transaction do |f| %>
 <%= f.hidden_field :currency_id, value:2 %>
+<%= f.hidden_field :amount_unit, value:'%.2f' % (@priceETH*1.01) %>
+<%= f.hidden_field :txn_type, value: 1 %>
+
+
 
   <%= f.label :Units %>
   <%= f.number_field :units, :class => 'text_field', :step => 0.01, :min => 0.01, :max => '%.2f'% (50000/@priceETH) %>
