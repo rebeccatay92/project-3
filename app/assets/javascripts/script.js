@@ -184,7 +184,6 @@ $(document).on('ready page:load', function (event) {
       y_label: 'Volume'
     })
   }
-<<<<<<< HEAD
 })
   /*------------------------------------------------*/
 //   var currentPriceApi = `https://min-api.cryptocompare.com/data/pricemulti?fsyms=BTC,ETH,XRP,LTC,DASH&tsyms=USD`
@@ -205,22 +204,3 @@ $(document).on('ready page:load', function (event) {
 // }) //close doc.ready
 
 // getCurrentPrice()
-=======
-
-  /* ------------------------------------------------ */
-  var currentPriceApi = `https://min-api.cryptocompare.com/data/pricemulti?fsyms=BTC,ETH,XRP,LTC,DASH&tsyms=USD`
-
-  function getCurrentPrice () {
-    $.get(currentPriceApi).done(function (data) {
-      for (var key in data) {
-        $(`#live${key}`).text(`${key}: ${data[key].USD}`)
-      }
-    })
-  }
-
-  getCurrentPrice()
-
-  setInterval(getCurrentPrice, 10000)
-  /* ------------------------------------------------ */
-}) // close doc.ready
->>>>>>> origin/testbranch

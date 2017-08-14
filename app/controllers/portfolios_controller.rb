@@ -30,7 +30,7 @@ class PortfoliosController < ApplicationController
   end
 end
 
-render json: @price
+# render json: @price
 
 # render json: {
 #   :portfolio => @user_portfolio,
