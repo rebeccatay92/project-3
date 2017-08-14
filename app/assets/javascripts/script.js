@@ -201,6 +201,5 @@ $(document).on('ready page:load', function (event) {
 //   // getCurrentPrice()
 //   setInterval(getCurrentPrice, 100)
 //   /*------------------------------------------------*/
-// }) //close doc.ready
 
 // getCurrentPrice()
