@@ -2,10 +2,13 @@
 # All this logic will automatically be available in application.js.
 # You can use CoffeeScript in this file: http://coffeescript.org/
 
+# ready page:load
 
-$('#positionsTable').DataTable({
-      searching: false,
-      ordering: false,
-      select: false,
-      paging: false
-    })
+$(document).on 'turbolinks:load', (event) ->
+  $('#positionsTable').DataTable({
+        searching: false,
+        ordering: false,
+        select: false,
+        paging: true
+      })
+  # alert('hello social trading')
