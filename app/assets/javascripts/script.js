@@ -165,8 +165,8 @@ $(document).on('ready page:load', function (event) {
       y_extended_ticks: true,
       min_y_from_data: true,
       max_y: maxY,
-      legend: legendArr,
-      colors: colorArr,
+      // legend: legendArr,
+      // colors: colorArr,
       aggregate_rollover: true,
       decimals: 4
     })
