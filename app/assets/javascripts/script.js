@@ -8,7 +8,6 @@ $(document).on('ready page:load', function (event) {
     // console.log($(':selected'))
     dataArr = []
     legendArr = []
-    colorArr = []
     currencySym = $(':selected')[0].id
     timeDigit = parseInt($(':selected')[1].id)
     timeFrame = $(':selected')[1].className
@@ -32,27 +31,23 @@ $(document).on('ready page:load', function (event) {
       })
       dataArr.push(close)
       legendArr.push('Close')
-      colorArr.push('black')
 
       volume = JSON.parse(JSON.stringify(apidata)).splice(50)
       volume.forEach(function (e) {
         e.value = e.volumefrom
       })
-      console.log(volume)
       plotVolume()
 
       if (indicator1) {
         var indicator1data = movingAvgs(indicator1)
         dataArr.push(indicator1data)
         legendArr.push(indicator1)
-        colorArr.push('blue')
       }
 
       if (indicator2) {
         var indicator2data = movingAvgs(indicator2)
         dataArr.push(indicator2data)
         legendArr.push(indicator2)
-        colorArr.push('green')
       }
 
       if (indicator3) {
@@ -75,7 +70,6 @@ $(document).on('ready page:load', function (event) {
         indicator3lower = bollingerLower.splice(50)
         dataArr.push(indicator3lower, indicator3upper)
         legendArr.push('Lower Bound', 'Upper Bound')
-        colorArr.push('red', 'red')
       }
 
       plot()
@@ -166,8 +160,6 @@ $(document).on('ready page:load', function (event) {
       min_y_from_data: true,
       max_y: maxY,
       legend: legendArr,
-      // max_data_size: dataArr.length,
-      // colors: colorArr,
       aggregate_rollover: true,
       decimals: 4
     })
