@@ -2,16 +2,20 @@
 <%#= link_to "Analyze", analysis_path %>
 <%#= link_to "Portfolio", portfolio_path %>
 
-<h1>PORTFOLIO HERE</h1>
+<h1>PORTFOLIO</h1>
+
+<h2>Hello <%= current_user.name %></h2>
+
+<h3>Credit balance: <%= '%.2f' % current_user.credits_remaining %></h3>
 
 <% @user_portfolio.each_with_index do |user, index| %>
 
 <ul>
   <li>
-  <h3><%= user.currency.name %> (<%= user.currency.currency_symbol%>)</h3>
-  <h3>Total Price: <%= @hash_portfolios[index] %></h3>
-  <h3>Total Units: <%= user.total_units %></h3>
-  
+  <h3><%= user.currency.name %> (<%= user.currency.currency_symbol%>) Units: <%= user.total_units %></h3>
+  <h3>Total Value: <%= @hash_portfolios[index] %></h3>
+
+
   </li>
 </ul>
 
