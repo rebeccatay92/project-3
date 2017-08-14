@@ -9,7 +9,7 @@ def create
 new_transaction = Transaction.new
   new_transaction.user_id = current_user[:id]
   new_transaction.currency_id = params[:transaction][:currency_id]
-  new_transaction.txn_type = [:transaction][:txn_type]
+  new_transaction.txn_type = params[:transaction][:txn_type]
   new_transaction.units = params[:transaction][:units]
   new_transaction.amount_unit = params[:transaction][:amount_unit]
   new_transaction.txn_amt = new_transaction.units* new_transaction.amount_unit
