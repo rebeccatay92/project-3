@@ -7,6 +7,8 @@ $(document).on('ready page:load', function (event) {
   $('select').on('change', function () {
     // console.log($(':selected'))
     dataArr = []
+    legendArr = []
+    colorArr = []
     currencySym = $(':selected')[0].id
     timeDigit = parseInt($(':selected')[1].id)
     timeFrame = $(':selected')[1].className
@@ -29,6 +31,8 @@ $(document).on('ready page:load', function (event) {
         e.value = e.close
       })
       dataArr.push(close)
+      legendArr.push('Close')
+      colorArr.push('black')
 
       volume = JSON.parse(JSON.stringify(apidata)).splice(50)
       volume.forEach(function (e) {
@@ -40,12 +44,16 @@ $(document).on('ready page:load', function (event) {
       if (indicator1) {
         var indicator1data = movingAvgs(indicator1)
         dataArr.push(indicator1data)
-      } else dataArr.push([{}])
+        legendArr.push(indicator1)
+        colorArr.push('blue')
+      }
 
       if (indicator2) {
         var indicator2data = movingAvgs(indicator2)
         dataArr.push(indicator2data)
-      } else dataArr.push([{}])
+        legendArr.push(indicator2)
+        colorArr.push('green')
+      }
 
       if (indicator3) {
         var bollingerLower = JSON.parse(JSON.stringify(apidata)).splice(0)
@@ -66,7 +74,9 @@ $(document).on('ready page:load', function (event) {
         indicator3upper = bollingerUpper.splice(50)
         indicator3lower = bollingerLower.splice(50)
         dataArr.push(indicator3lower, indicator3upper)
-      } else dataArr.push([{}])
+        legendArr.push('Lower Bound', 'Upper Bound')
+        colorArr.push('red', 'red')
+      }
 
       plot()
     })
@@ -154,8 +164,8 @@ $(document).on('ready page:load', function (event) {
       yax_count: 5,
       min_y_from_data: true,
       max_y: maxY,
-      legend: ['Closing', 'Indicator 1', 'Indicator 2', 'Lower Bound', 'Upper Bound'],
-      colors: ['black', 'green', 'blue', 'red', 'red'],
+      legend: legendArr,
+      colors: colorArr,
       aggregate_rollover: true,
       decimals: 4
     })
@@ -166,7 +176,6 @@ $(document).on('ready page:load', function (event) {
       e.time = new Date(e.time * 1000)
     })
 
-    // var adi_baselines = [{value:50000, label:'testing baseline'}];
     MG.data_graphic({
       data: volume,
       chart_type: 'histogram',
@@ -178,8 +187,7 @@ $(document).on('ready page:load', function (event) {
       x_accessor: 'time',
       y_accessor: 'value',
       x_label: 'Time',
-      y_label: 'Volume',
-      // baselines: adi_baselines
+      y_label: 'Volume'
     })
   }
 
