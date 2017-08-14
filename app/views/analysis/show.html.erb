@@ -1,9 +1,6 @@
-<%#= link_to "Home", root_path %>
-<%#= link_to "Analyze", analysis_path %>
-<%#= link_to "Portfolio", portfolio_path %>
-
 <h1>CHARTS HERE</h1>
 
+<form>
 <select class="currency" name="">
   <option>Select a crytocurrency</option>
   <option id='BTC'>Bitcoin</option>
@@ -17,20 +14,43 @@
   <option class='minute' id='60'>1 Hour</option>
   <option class='minute' id='180'>3 Hour</option>
   <option class='minute' id='360'>6 Hour</option>
+  <option class='minute' id='720'>12 Hour</option>
   <option class='minute' id='1440'>1 Day</option>
+  <option class='hour' id='72'>3 Day</option>
   <option class='hour' id='168'>1 Week</option>
   <option class='hour' id='730'>1 Month</option>
+  <option class='day' id='90'>3 Month</option>
   <option class='day' id='182'>6 Month</option>
   <option class='day' id='365'>1 Year</option>
   <option class='day' id='1095'>3 Year</option>
-  <option class='day' id='1825'>5 Year</option>
 </select>
 
 <select class="indicator1" name="">
-  <option id=''>Select indicator</option>
+  <option id=''>Moving averages</option>
   <option id='SMA5'>SMA5</option>
   <option id='SMA20'>SMA20</option>
+  <option id='SMA50'>SMA50</option>
+  <option id='EMA5'>EMA5</option>
+  <option id='EMA20'>EMA20</option>
+  <option id='EMA50'>EMA50</option>
 </select>
 
+<select class="indicator2" name="">
+  <option id=''>Moving averages</option>
+  <option id='SMA5'>SMA5</option>
+  <option id='SMA20'>SMA20</option>
+  <option id='SMA50'>SMA50</option>
+  <option id='EMA5'>EMA5</option>
+  <option id='EMA20'>EMA20</option>
+  <option id='EMA50'>EMA50</option>
+</select>
+
+<select class="indicator3" name="">
+  <option id=''>Bollinger Bands</option>
+  <option id='BB(20,2)'>BB(20,2)</option>
+  <option id='BB(20,2.5)'>BB(20,2.5)</option>
+</select>
+
+</form>
 <div id="graph"></div>
 <div id="volume"></div>
