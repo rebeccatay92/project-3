@@ -173,6 +173,7 @@ $(document).on('turbolinks:load', function (event) {
       var maxY = maxValues[0] //finding max of all lines
 
       MG.data_graphic({
+        title: currencySym + '(USD)',
         data: dataArr,
         width: 1000,
         height: 500,
@@ -181,7 +182,7 @@ $(document).on('turbolinks:load', function (event) {
         x_accessor: 'time',
         y_accessor: 'value',
         x_label: 'Time',
-        y_label: 'USD',
+        yax_units: 'USD$',
         yax_format: d3.format('2'),
         yax_count: 5,
         y_extended_ticks: true,
@@ -208,8 +209,7 @@ $(document).on('turbolinks:load', function (event) {
         target: '#volume',
         x_accessor: 'time',
         y_accessor: 'value',
-        x_label: 'Time',
-        y_label: 'Volume'
+        x_label: 'Time'
       })
     }
     /* --------------------------------------------- */
