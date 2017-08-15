@@ -30,7 +30,7 @@ $(document).on('turbolinks:load', function (event) {
 
       plot()
     })
-    
+
     /* ------------------------------------------- */
     // update chart based on selection changes
     $('select').on('change', function () {
