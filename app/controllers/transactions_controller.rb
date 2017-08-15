@@ -1,6 +1,5 @@
 class TransactionsController < ApplicationController
 
-
 def create
   # render json: params
 
@@ -23,8 +22,7 @@ new_transaction = Transaction.new
       spec_portfolio = Portfolio.where(user_id: new_transaction.user_id, currency_id: new_transaction.currency_id)
 
       # puts spec_portfolio.length
-
-      if spec_portfolio.length == 0
+        if spec_portfolio.length == 0
 
         new_portfolio = Portfolio.new
         new_portfolio.user_id = new_transaction.user_id
@@ -33,7 +31,7 @@ new_transaction = Transaction.new
 
         new_portfolio.save!
 
-      else
+        else
         update_portfolio = Portfolio.find_by(user_id: new_transaction.user_id, currency_id: new_transaction.currency_id)
 
         update_portfolio.total_units = update_portfolio.total_units + new_transaction.units
@@ -41,10 +39,9 @@ new_transaction = Transaction.new
         update_portfolio.save
 
         #code
-
       end
 
-    elsif new_transaction.txn_type == 2
+  elsif new_transaction.txn_type == 2
       #code
       current_user.credits_remaining = current_user.credits_remaining + new_transaction.txn_amt
       current_user.save
@@ -62,23 +59,10 @@ new_transaction = Transaction.new
 
 
       # spec_portfolio = Portfolio.where(user_id: new_transaction.user_id, currency_id: new_transaction.currency_id)
-
-
-
         redirect_to portfolios_path
-
-
     end
 
-
-
-
     end
-
-
-
-
-
 
   end
 
