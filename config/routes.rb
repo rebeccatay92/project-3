@@ -19,4 +19,5 @@ Rails.application.routes.draw do
   get '/analysis', to: 'analysis#show', as: 'analysis'
   # get '/portfolio', to:'portfolio#show', as: 'portfolio'
 
+  resources :social_trading
 end

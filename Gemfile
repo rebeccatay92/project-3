@@ -10,6 +10,7 @@ gem 'jquery-rails'
 gem 'metrics-graphics-rails'
 gem 'devise'
 gem 'pry'
+gem 'faker'
 gem 'httparty'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'

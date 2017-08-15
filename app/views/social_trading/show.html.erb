@@ -1,0 +1,64 @@
+<h1>Active Trader: <%= @active_trader.name %> (Rank #<%= @trader_ranking %>)</h1>
+
+<%= link_to "Back to Active Traders List", social_trading_index_path %>
+<br>
+<br>
+
+<h2>Overview (as of <%= @date_now %>, <%= @time_now %>)</h2>
+
+<h3>Credit Balance</h3>
+
+$<%= @credit_remaining %>  <!-- @active_trader.credits_remaining -->
+
+<h3>Current Portfolio</h3>
+
+
+<div class="tableDiv">
+	<table id="portfolioTable" class="display compact">
+	    <thead>		
+			<tr>			
+				<th>Currency</th>
+				<th>Number of units</th>
+			    <th>Current market value</th>
+			</tr>		
+	    </thead>
+	    <tbody>
+	    	<% @user_portfolios.each do |portfolio| %>
+		    	<tr>
+		    		<td><%= portfolio[0] %></td>
+		    		<td><%= portfolio[1] %></td>
+		    		<td><%= portfolio[2] %></td>
+		    	</tr>
+	    	<% end %>
+	    </tbody>
+	</table>
+</div>
+
+<h3>Past 90-day Trades</h3>
+
+<div class="tableDiv">
+	<table id="transactionsTable" class="display compact">
+	 	<thead>
+			<tr>
+	      		<th>Bought or sold</th>
+				<th>Currency</th>
+				<th>Number of units</th>
+	      		<th>Unit price</th>
+	      		<th>Transaction date</th>
+			</tr>
+	  	</thead>
+
+	  <tbody id="tableBody">
+			<% @all_past90days_transactions.each do |transaction| %>
+				<tr id="">
+	        <td><%= transaction[0] %></td>
+	        <td><%= transaction[1] %></td>
+	        <td><%= transaction[2] %></td>
+			<td>$<%= transaction[3] %></td>
+	        <td><%= transaction[4] %></td>
+				</tr>
+			<% end %>
+		</tbody>
+
+	</table>
+</div>
