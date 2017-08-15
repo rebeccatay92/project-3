@@ -6,6 +6,7 @@
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
 
+#################################################################
 
 # 100.times do
 #   User.create!(
@@ -256,4 +257,12 @@ User.all.each do |user|
   end # 1.upto(31) do |i|
 end # User.each do |user|
 
-# leadership board -- check if # of transactions > 0
+###############
+## REBECCA'S SEEDING
+###############
+
+# Currency.create(name:"Bitcoin", currency_symbol:"BTC")
+# Currency.create(name:"Ethereum", currency_symbol:"ETH")
+# Currency.create(name:"Ripple", currency_symbol:"XRP")
+# Currency.create(name:"Litecoin", currency_symbol:"LTC")
+# Currency.create(name:"Dash", currency_symbol:"DASH")
