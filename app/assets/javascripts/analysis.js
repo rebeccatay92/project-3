@@ -11,7 +11,7 @@ $(document).on('turbolinks:load', function (event) {
     var dataArr = []
     var legendArr = []
     var totalTimePeriods = timeDigit + bufferPeriods - 1
-    var histoQuery = `https://min-api.cryptocompare.com/data/histo${timeFrame}?tsym=USD&fsym=${currencySym}&limit=${totalTimePeriods}`
+    var histoQuery = "https://min-api.cryptocompare.com/data/histo"+timeFrame+"?tsym=USD&fsym="+currencySym+"&limit="+totalTimePeriods
 
     $.get(histoQuery).done(function (x) {
       apidata = x.Data
@@ -47,7 +47,7 @@ $(document).on('turbolinks:load', function (event) {
       if (!currencySym) return
 
       totalTimePeriods = timeDigit + bufferPeriods - 1
-      histoQuery = `https://min-api.cryptocompare.com/data/histo${timeFrame}?tsym=USD&fsym=${currencySym}&limit=${totalTimePeriods}`
+      histoQuery = "https://min-api.cryptocompare.com/data/histo"+timeFrame+"?tsym=USD&fsym="+currencySym+"&limit="+totalTimePeriods
 
       $.get(histoQuery).done(function (x) {
         apidata = x.Data

@@ -10,16 +10,16 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170809165939) do
+ActiveRecord::Schema.define(version: 20170814135929) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
   create_table "currencies", force: :cascade do |t|
     t.string "name"
-    t.string "currency_symbol"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "currency_symbol"
   end
 
   create_table "portfolios", force: :cascade do |t|
@@ -38,9 +38,9 @@ ActiveRecord::Schema.define(version: 20170809165939) do
     t.integer "txn_type"
     t.decimal "units"
     t.decimal "amount_unit"
-    t.decimal "txn_amt"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.decimal "txn_amt"
     t.index ["currency_id"], name: "index_transactions_on_currency_id"
     t.index ["user_id"], name: "index_transactions_on_user_id"
   end
@@ -49,7 +49,7 @@ ActiveRecord::Schema.define(version: 20170809165939) do
     t.string "name"
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
-    t.decimal "credits_remaining", default: "50000.0", null: false
+    t.decimal "credits_remaining"
     t.string "reset_password_token"
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"

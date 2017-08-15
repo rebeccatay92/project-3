@@ -17,6 +17,8 @@ class PortfoliosController < ApplicationController
     @symbols = []
     @unit_price = []
     @portfolio_value = []
+
+
     @user_portfolio.each do |portfolio|
       thiscurrencyid = portfolio[:currency_id]
       @currencyIDs << thiscurrencyid
@@ -27,8 +29,10 @@ class PortfoliosController < ApplicationController
 
       @unit_price << unitprice
       @portfolio_value << unitprice * portfolio[:total_units]
+
     end
 
+    @total_val = @portfolio_value.inject(0, :+)
 
     # render json: {
     #   :user_portfolio => @user_portfolio,
