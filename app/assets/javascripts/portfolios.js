@@ -6,9 +6,7 @@ $(document).on('turbolinks:load', function (event) {
     function refresh() {
       location.reload()
     }
-
-    clearInterval(refresh)
-    setInterval(refresh, 10000)
+    setInterval(refresh, 5000)
 
   })
 })

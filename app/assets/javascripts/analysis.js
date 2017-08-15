@@ -1,6 +1,7 @@
 $(document).on('turbolinks:load', function (event) {
   $('.analysis.show').ready(function () {
 
+
     /* ------------------------------------------- */
     var bufferPeriods = 50
     /* ------------------------------------------- */
