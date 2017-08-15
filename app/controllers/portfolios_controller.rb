@@ -1,81 +1,56 @@
 class PortfoliosController < ApplicationController
 
-
   def index
     current_price_url = 'https://min-api.cryptocompare.com/data/pricemulti?fsyms=BTC,ETH,XRP,LTC,DASH&tsyms=USD'
+    @price = HTTParty.get(current_price_url)
+    @priceBTC= @price["BTC"]["USD"]
+    @priceETH= @price["ETH"]["USD"]
+    @priceXRP= @price["XRP"]["USD"]
+    @priceLTC= @price["LTC"]["USD"]
+    @priceDASH= @price["DASH"]["USD"]
 
-      @price = HTTParty.get(current_price_url)
-
-      # setInterval(2)
-
-@priceBTC= @price["BTC"]["USD"]
-
-@priceETH= @price["ETH"]["USD"]
-
-@priceXRP= @price["XRP"]["USD"]
-
-@priceLTC= @price["LTC"]["USD"]
-
-@priceDASH= @price["DASH"]["USD"]
-
-@new_transaction = Transaction.new
-@all_currencies = Currency.all
-@user_portfolio = Portfolio.where(user_id: current_user)
-
-
-
-@unit_price = []
-@portfolio_value = []
-
-@price.each_with_index do | price, index |
-  @thisprice = price
-  @thisindex = index
-  if @user_portfolio[index]
-    @unit_price << price[1]['USD']
-
-    @portfolio_value << price[1]['USD'] * @user_portfolio[index][:total_units]
-  end
-
-end
-
-# render json: @price
-
-# render json: {
-#   :portfolio => @user_portfolio,
-#   :unit_pricees => @unit_price,
-#   :price => @price,
-#   :thisprice => @thisprice,
-#   :thisindex => @thisindex
-#
-# }
-
-
-end
-
-def create
+    @new_transaction = Transaction.new
+    @all_currencies = Currency.all
+    @user_portfolio = Portfolio.where(user_id: current_user)
 
 
 
 
-end
+    # @price.each_with_index do | price, index |
+    #   @thisprice = price
+    #   @thisindex = index
+    #   if @user_portfolio[index]
+    #     @unit_price << price[1]['USD']
+    #
+    #     @portfolio_value << price[1]['USD'] * @user_portfolio[index][:total_units]
+    #   end
+    # end
+
+    @currencyIDs = []
+    @symbols = []
+    @unit_price = []
+    @portfolio_value = []
+    @user_portfolio.each do |portfolio|
+      thiscurrencyid = portfolio[:currency_id]
+      @currencyIDs << thiscurrencyid
+      thiscurrency = Currency.find(thiscurrencyid)
+      thissymbol = thiscurrency[:currency_symbol].to_s
+      @symbols << thissymbol
+      unitprice = @price[thissymbol]["USD"]
+
+      @unit_price << unitprice
+      @portfolio_value << unitprice * portfolio[:total_units]
+    end
 
 
+    # render json: {
+    #   :user_portfolio => @user_portfolio,
+    #   :price => @price,
+    #   :currencyarray => @currencyIDs,
+    #   :symbols => @symbols,
+    #   :unitprices => @unitprices,
+    #   :portfolio_value => @portfolio_value
+    # }
 
-
-
-
-end
-
-
-# def setInterval(delay)
-# Thread.new do
-# loop do
-# sleep delay
-# current_price_url = 'https://min-api.cryptocompare.com/data/pricemulti?fsyms=BTC,ETH,XRP,LTC,DASH&tsyms=USD'
-#
-#   price = HTTParty.get(current_price_url)
-#   puts price
-#
-# end
-#
-# end
+  end #close def
+end #close controller
