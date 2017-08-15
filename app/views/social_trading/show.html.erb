@@ -1,8 +1,18 @@
+
+<% if params[:id] == current_user.id %>
 <h1>Active Trader: <%= @active_trader.name %> (Rank #<%= @trader_ranking %>)</h1>
 
 <%= link_to "Back to Active Traders List", social_trading_index_path %>
 <br>
 <br>
+<% else %>
+<h1>Account Overview</h1>
+
+
+
+
+<% end %>
+
 
 <h2>Overview (as of <%= @date_now %>, <%= @time_now %>)</h2>
 
@@ -15,12 +25,12 @@ $<%= @credit_remaining %>  <!-- @active_trader.credits_remaining -->
 
 <div class="tableDiv">
 	<table id="portfolioTable" class="display compact">
-	    <thead>		
-			<tr>			
+	    <thead>
+			<tr>
 				<th>Currency</th>
 				<th>Number of units</th>
 			    <th>Current market value</th>
-			</tr>		
+			</tr>
 	    </thead>
 	    <tbody>
 	    	<% @user_portfolios.each do |portfolio| %>

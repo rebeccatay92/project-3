@@ -2,6 +2,10 @@ class SocialTradingController < ApplicationController
 
 require 'date'
 
+def show
+
+end
+
   def index
     #code
     today = Date.today
