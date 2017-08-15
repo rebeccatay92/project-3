@@ -39,7 +39,7 @@ end
 
 # render json: {
 #   :portfolio => @user_portfolio,
-#   :hash_portfolios => @hash_portfolios,
+#   :unit_pricees => @unit_price,
 #   :price => @price
 # }
 # @user_portfolio

@@ -15,13 +15,13 @@
     <!-- true -->
     <li>
     <h3><%= user.currency.name %> (<%= user.currency.currency_symbol%>) Units: <%=  user.total_units %></h3>
-    <h3>Total Value: <%= '%.3f' % @unit_price[index] %></h3>
-    <h3>Price/unit: <%= '%.3f' % @portfolio_value[index] %></h3>
-    <h3>Sell Price/ unit: <%= '%.3f' % (@portfolio_value[index]* 0.99) %></h3>
+    <h3>Total Value: <%= '%.3f' % @portfolio_value[index]%></h3>
+    <h3>Price/unit: <%= '%.3f' % @unit_price[index] %> </h3>
+    <h3>SellPrice/ unit: <%= '%.3f' % (@unit_price[index]* 0.99) %></h3>
 
     <%= form_for @new_transaction do |f| %>
       <%= f.hidden_field :currency_id, value: user.currency.id %>
-      <%= f.hidden_field :amount_unit, value:'%.3f' % (@portfolio_value[index]* 0.99) %>
+      <%= f.hidden_field :amount_unit, value:'%.3f' % (@unit_price[index]* 0.99) %>
       <%= f.hidden_field :txn_type, value: 2 %>
       <%= f.label :Units %>
       <%= f.number_field :units, :class => 'text_field', :step => 0.01, :min => 0.01, :max => user.total_units, :required => true %>
@@ -32,12 +32,12 @@
   <% else %>
   <li>
   <h3><%= user.currency.name %> (<%= user.currency.currency_symbol%>) Units: <%=  user.total_units %></h3>
-  <h3>Total Value: <%= '%.2f' % @unit_price[index] %></h3>
-  <h3>Price/unit: <%= '%.2f' % @portfolio_value[index] %></h3>
-  <h3>Sell Price/ unit: <%= '%.2f' % (@portfolio_value[index]* 0.99) %></h3>
+  <h3>Total Value: <%= '%.2f' % @portfolio_value[index]  %></h3>
+  <h3>Price/unit: <%= '%.2f' % @unit_price[index] %></h3>
+  <h3>Sell Price/ unit: <%= '%.2f' % (@unit_price[index]* 0.99) %></h3>
   <%= form_for @new_transaction do |f| %>
     <%= f.hidden_field :currency_id, value: user.currency.id %>
-    <%= f.hidden_field :amount_unit, value:'%.3f' % (@portfolio_value[index]* 0.99) %>
+    <%= f.hidden_field :amount_unit, value:'%.3f' % (@unit_price[index]* 0.99) %>
     <%= f.hidden_field :txn_type, value: 2 %>
     <%= f.label :Units %>
     <%= f.number_field :units, :class => 'text_field', :step => 0.01, :min => 0.01, :max => user.total_units, :required => true %>
