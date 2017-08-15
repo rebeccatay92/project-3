@@ -4,11 +4,13 @@
 <br>
 <br>
 
-<h2>Credit Balance</h2>
+<h2>Overview (as of <%= @date_now %>, <%= @time_now %>)</h2>
+
+<h3>Credit Balance</h3>
 
 $<%= @credit_remaining %>  <!-- @active_trader.credits_remaining -->
 
-<h2>Current Portfolio</h2>
+<h3>Current Portfolio</h3>
 
 
 <div class="tableDiv">
@@ -25,14 +27,14 @@ $<%= @credit_remaining %>  <!-- @active_trader.credits_remaining -->
 		    	<tr>
 		    		<td><%= portfolio[0] %></td>
 		    		<td><%= portfolio[1] %></td>
-		    		<!-- <td><%#= portfolio[2] %></td> -->
+		    		<td><%= portfolio[2] %></td>
 		    	</tr>
 	    	<% end %>
 	    </tbody>
 	</table>
 </div>
 
-<h2>Past 90-day Trades</h2>
+<h3>Past 90-day Trades</h3>
 
 <div class="tableDiv">
 	<table id="transactionsTable" class="display compact">

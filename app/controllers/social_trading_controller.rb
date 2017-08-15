@@ -56,8 +56,25 @@ require 'date'
     # render html: "aaa #{aaa}; bbb #{bbb}"
     @active_trader = User.find(arr[0])
     @trader_ranking = arr[1]
-
     @credit_remaining = '%.2f' %(@active_trader.credits_remaining)
+
+
+    ##############################
+    ### get lastest coins prices
+    ##############################
+
+    current_price_url = 'https://min-api.cryptocompare.com/data/pricemulti?fsyms=BTC,ETH,XRP,LTC,DASH&tsyms=USD'
+
+    price = HTTParty.get(current_price_url)
+    # priceBTC= price["BTC"]["USD"]
+    # priceETH= price["ETH"]["USD"]
+    # priceXRP= price["XRP"]["USD"]
+    # priceLTC= price["LTC"]["USD"]
+    # priceDASH= price["DASH"]["USD"]
+
+    t = Time.now
+    @date_now = t.strftime('%F')
+    @time_now = t.strftime('%R')
 
     all_portfolios = Portfolio.where(user_id: arr[0])
     @user_portfolios = []
@@ -66,6 +83,7 @@ require 'date'
       currency_name = Currency.where(id: portfolio[:currency_id])[0][:name]
       pot.push(currency_name)
       pot.push(portfolio[:total_units])
+      pot.push(price[currency_name]["USD"])
       @user_portfolios.push(pot)
     end
 
