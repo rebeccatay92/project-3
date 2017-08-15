@@ -3,7 +3,34 @@ $(document).on('turbolinks:load', function (event) {
 
 
     /* ------------------------------------------- */
+    // default render bitcoin prices
     var bufferPeriods = 50
+    var currencySym = 'BTC'
+    var timeDigit = 60
+    var timeFrame = 'minute'
+    var dataArr = []
+    var legendArr = []
+    var totalTimePeriods = timeDigit + bufferPeriods - 1
+    var histoQuery = `https://min-api.cryptocompare.com/data/histo${timeFrame}?tsym=USD&fsym=${currencySym}&limit=${totalTimePeriods}`
+
+    $.get(histoQuery).done(function (x) {
+      apidata = x.Data
+      close = JSON.parse(JSON.stringify(apidata)).splice(50)
+      close.forEach(function (e) {
+        e.value = e.close
+      })
+      dataArr.push(close)
+      legendArr.push('Close')
+
+      volume = JSON.parse(JSON.stringify(apidata)).splice(50)
+      volume.forEach(function (e) {
+        e.value = e.volumefrom
+      })
+      plotVolume()
+
+      plot()
+    })
+    
     /* ------------------------------------------- */
     // update chart based on selection changes
     $('select').on('change', function () {
@@ -20,7 +47,7 @@ $(document).on('turbolinks:load', function (event) {
       if (!currencySym) return
 
       totalTimePeriods = timeDigit + bufferPeriods - 1
-      var histoQuery = `https://min-api.cryptocompare.com/data/histo${timeFrame}?tsym=USD&fsym=${currencySym}&limit=${totalTimePeriods}`
+      histoQuery = `https://min-api.cryptocompare.com/data/histo${timeFrame}?tsym=USD&fsym=${currencySym}&limit=${totalTimePeriods}`
 
       $.get(histoQuery).done(function (x) {
         apidata = x.Data
