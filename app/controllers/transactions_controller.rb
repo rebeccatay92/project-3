@@ -1,5 +1,6 @@
 class TransactionsController < ApplicationController
 
+
 def create
   # render json: params
 
@@ -31,12 +32,16 @@ new_transaction = Transaction.new
 
         new_portfolio.save!
 
+        redirect_to portfolios_path
+
         else
         update_portfolio = Portfolio.find_by(user_id: new_transaction.user_id, currency_id: new_transaction.currency_id)
 
         update_portfolio.total_units = update_portfolio.total_units + new_transaction.units
 
         update_portfolio.save
+
+        redirect_to portfolios_path
 
         #code
       end
