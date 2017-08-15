@@ -60,7 +60,7 @@ end
     # render html: "aaa #{aaa}; bbb #{bbb}"
     @active_trader = User.find(arr[0])
     @trader_ranking = arr[1]
-    @credit_remaining = '%.2f' %(@active_trader.credits_remaining)
+    
 
 
     ##############################
@@ -82,15 +82,22 @@ end
 
     all_portfolios = Portfolio.where(user_id: arr[0])
     @user_portfolios = []
+    @total_portfolio_value = 0
+
     all_portfolios.each do |portfolio|
       pot = []
       currency_name = Currency.where(id: portfolio[:currency_id])[0][:currency_symbol]
-      puts currency_name
+      portfolio_value = (portfolio[:total_units] *  price[currency_name]["USD"])
       pot.push(currency_name)
       pot.push('%.2f' % portfolio[:total_units])
-      pot.push('%.2f' % (portfolio[:total_units] *  price[currency_name]["USD"]))
+      pot.push('%.2f' % portfolio_value)
       @user_portfolios.push(pot)
+      @total_portfolio_value += portfolio_value
     end
+
+    @credit_remaining = @active_trader.credits_remaining
+    @total_account_value = '%.2f' %(@credit_remaining + @total_portfolio_value)
+    @credit_remaining = '%.2f' %(@active_trader.credits_remaining)
 
     today = Date.today
     date_90days_ago = today - 90
@@ -114,14 +121,6 @@ end
 
       txn.push(transaction[:units])
 
-      print "xxxxxxxxxxxxxxx"
-      p transaction[:currency_id]
-      p transaction[:txn_type]
-      p transaction[:txn_amt]
-      p transaction[:amount_unit]
-      p transaction[:units]
-      print "yyyyyyyyyyyyyyy"
-
       unit_price = transaction[:amount_unit]/transaction[:units]
 
       txn.push('%.2f' % unit_price)
@@ -130,7 +129,5 @@ end
     end
     @all_past90days_transactions = @all_past90days_transactions.reverse
   end
-
-
 
 end

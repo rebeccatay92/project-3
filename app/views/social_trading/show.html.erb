@@ -18,10 +18,17 @@
 
 <h3>Credit Balance</h3>
 
-$<%= @credit_remaining %>  <!-- @active_trader.credits_remaining -->
+US$<%= @credit_remaining %>  <!-- @active_trader.credits_remaining -->
+
+<h3>Total Portfolio Value</h3>
+
+US$<%= @total_portfolio_value %>
+
+<h3>Total Account Worth</h3>
+
+US$<%= @total_account_value %>
 
 <h3>Current Portfolio</h3>
-
 
 <div class="tableDiv">
 	<table id="portfolioTable" class="display compact">
@@ -29,7 +36,7 @@ $<%= @credit_remaining %>  <!-- @active_trader.credits_remaining -->
 			<tr>
 				<th>Currency</th>
 				<th>Number of units</th>
-			    <th>Current market value</th>
+			    <th>Current market value (US$)</th>
 			</tr>
 	    </thead>
 	    <tbody>
@@ -53,7 +60,7 @@ $<%= @credit_remaining %>  <!-- @active_trader.credits_remaining -->
 	      		<th>Bought or sold</th>
 				<th>Currency</th>
 				<th>Number of units</th>
-	      		<th>Unit price</th>
+	      		<th>Unit price (US$)</th>
 	      		<th>Transaction date</th>
 			</tr>
 	  	</thead>
@@ -64,7 +71,7 @@ $<%= @credit_remaining %>  <!-- @active_trader.credits_remaining -->
 	        <td><%= transaction[0] %></td>
 	        <td><%= transaction[1] %></td>
 	        <td><%= transaction[2] %></td>
-			<td>$<%= transaction[3] %></td>
+			<td><%= transaction[3] %></td>
 	        <td><%= transaction[4] %></td>
 				</tr>
 			<% end %>
