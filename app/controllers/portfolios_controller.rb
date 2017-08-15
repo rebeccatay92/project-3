@@ -14,22 +14,11 @@ class PortfoliosController < ApplicationController
     @user_portfolio = Portfolio.where(user_id: current_user)
 
 
-
-
-    # @price.each_with_index do | price, index |
-    #   @thisprice = price
-    #   @thisindex = index
-    #   if @user_portfolio[index]
-    #     @unit_price << price[1]['USD']
-    #
-    #     @portfolio_value << price[1]['USD'] * @user_portfolio[index][:total_units]
-    #   end
-    # end
-
     @currencyIDs = []
     @symbols = []
     @unit_price = []
     @portfolio_value = []
+  
     @user_portfolio.each do |portfolio|
       thiscurrencyid = portfolio[:currency_id]
       @currencyIDs << thiscurrencyid

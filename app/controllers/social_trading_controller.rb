@@ -80,10 +80,11 @@ require 'date'
     @user_portfolios = []
     all_portfolios.each do |portfolio|
       pot = []
-      currency_name = Currency.where(id: portfolio[:currency_id])[0][:name]
+      currency_name = Currency.where(id: portfolio[:currency_id])[0][:currency_symbol]
+      puts currency_name
       pot.push(currency_name)
-      pot.push(portfolio[:total_units])
-      pot.push(price[currency_name]["USD"])
+      pot.push('%.2f' % portfolio[:total_units])
+      pot.push('%.2f' % (portfolio[:total_units] *  price[currency_name]["USD"]))
       @user_portfolios.push(pot)
     end
 
@@ -106,14 +107,26 @@ require 'date'
       currency_name = Currency.where(id: transaction[:currency_id])[0][:name]
       txn.push(currency_name)
       # txn.push(transaction[:currency_id])
-      
+
       txn.push(transaction[:units])
-      txn.push('%.2f' %(transaction[:amount_unit]/transaction[:units]))
+
+      print "xxxxxxxxxxxxxxx"
+      p transaction[:currency_id]
+      p transaction[:txn_type]
+      p transaction[:txn_amt]
+      p transaction[:amount_unit]
+      p transaction[:units]
+      print "yyyyyyyyyyyyyyy"
+
+      unit_price = transaction[:amount_unit]/transaction[:units]
+
+      txn.push('%.2f' % unit_price)
       txn.push(transaction[:created_at].to_date)
       @all_past90days_transactions.push(txn)
     end
     @all_past90days_transactions = @all_past90days_transactions.reverse
   end
+
 
 
 end

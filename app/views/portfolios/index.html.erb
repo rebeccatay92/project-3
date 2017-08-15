@@ -3,7 +3,7 @@
 <h3>Credit balance: <%= '%.2f' % current_user.credits_remaining %></h3>
 
 
-
+<%= @user_portfolio.inspect %>
 <% @user_portfolio.each_with_index do |user, index| %>
 
 <ul>
