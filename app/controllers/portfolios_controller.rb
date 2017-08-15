@@ -28,11 +28,14 @@ class PortfoliosController < ApplicationController
 @portfolio_value = []
 
 @price.each_with_index do | price, index |
+  @thisprice = price
+  @thisindex = index
   if @user_portfolio[index]
     @unit_price << price[1]['USD']
 
     @portfolio_value << price[1]['USD'] * @user_portfolio[index][:total_units]
   end
+
 end
 
 # render json: @price
@@ -40,9 +43,12 @@ end
 # render json: {
 #   :portfolio => @user_portfolio,
 #   :unit_pricees => @unit_price,
-#   :price => @price
+#   :price => @price,
+#   :thisprice => @thisprice,
+#   :thisindex => @thisindex
+#
 # }
-# @user_portfolio
+
 
 end
 
