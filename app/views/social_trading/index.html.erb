@@ -3,26 +3,26 @@
 
 <h3>Most Active Traders from <%= @active_from %> to <%= @active_to %></h3>
 
-
-
-
-<table id="positionsTable" class="display compact">
-  <thead>
-		<tr>
-      <th>Rank #</th>
-			<th>Trader Name</th>
-			<th>Number of Trades</th>
-		</tr>
-	</thead>
-
-  <tbody id="tableBody">
-		<% @active_trader_list.each_with_index do |active_trader, index| %>
-			<tr id="<%= active_trader[:user_id] %>">
-        <td><%= index+1 %></td>
-        <td><%= link_to "#{active_trader[:user_name]}", social_trading_path("#{active_trader[:user_id]}+#{index+1}") %></td>
-				<td><%= active_trader[:trades] %></td>
+<div class="tableDiv">
+	<table id="rankingsTable" class="display compact">
+	  <thead>
+			<tr>
+	      <th>Rank #</th>
+				<th>Trader Name</th>
+				<th>Number of Trades</th>
 			</tr>
-		<% end %>
-	</tbody>
+		</thead>
 
-</table>
+	  <tbody id="tableBody">
+			<% @active_trader_list.each_with_index do |active_trader, index| %>
+				<tr id="<%= active_trader[:user_id] %>">
+	        <td><%= index+1 %></td>
+	        <td><%= link_to "#{active_trader[:user_name]}", social_trading_path("#{active_trader[:user_id]}+#{index+1}") %></td>
+					<td><%= active_trader[:trades] %></td>
+				</tr>
+			<% end %>
+		</tbody>
+
+	</table>
+</div>
+</body>

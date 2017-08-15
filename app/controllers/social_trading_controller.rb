@@ -57,6 +57,18 @@ require 'date'
     @active_trader = User.find(arr[0])
     @trader_ranking = arr[1]
 
+    @credit_remaining = '%.2f' %(@active_trader.credits_remaining)
+
+    all_portfolios = Portfolio.where(user_id: arr[0])
+    @user_portfolios = []
+    all_portfolios.each do |portfolio|
+      pot = []
+      currency_name = Currency.where(id: portfolio[:currency_id])[0][:name]
+      pot.push(currency_name)
+      pot.push(portfolio[:total_units])
+      @user_portfolios.push(pot)
+    end
+
     today = Date.today
     date_90days_ago = today - 90
     dt_date_90days_ago = date_90days_ago.to_datetime
@@ -66,14 +78,23 @@ require 'date'
     @all_past90days_transactions = []
     all_past90days_transactions.each do |transaction|
       txn = []
-      txn.push(transaction[:txn_type])
-      txn.push(transaction[:currency_id])
+
+      if (transaction[:txn_type] == 1)
+        txn.push("Buy")
+      else
+        txn.push("Sell")
+      end
+
+      currency_name = Currency.where(id: transaction[:currency_id])[0][:name]
+      txn.push(currency_name)
+      # txn.push(transaction[:currency_id])
+      
       txn.push(transaction[:units])
       txn.push('%.2f' %(transaction[:amount_unit]/transaction[:units]))
       txn.push(transaction[:created_at].to_date)
       @all_past90days_transactions.push(txn)
     end
-
+    @all_past90days_transactions = @all_past90days_transactions.reverse
   end
 
 
