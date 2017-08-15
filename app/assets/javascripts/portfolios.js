@@ -2,11 +2,16 @@ $(document).on('turbolinks:load', function (event) {
   console.log('javascript is running...')
 
   $('.portfolios.index').ready(function () {
+    var timerId
 
-    function refresh() {
-      location.reload()
+    function refresh () {
+      if ($('.portfolios.index').length) {
+        console.log('reload')
+        location.reload()
+      }
     }
-    setInterval(refresh, 5000)
 
+    clearInterval(timerId)
+    timerId = setInterval(refresh, 10000)
   })
 })

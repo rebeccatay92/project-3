@@ -13,9 +13,6 @@ class PortfoliosController < ApplicationController
     @all_currencies = Currency.all
     @user_portfolio = Portfolio.where(user_id: current_user)
 
-
-
-
     # @price.each_with_index do | price, index |
     #   @thisprice = price
     #   @thisindex = index

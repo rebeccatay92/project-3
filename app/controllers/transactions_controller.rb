@@ -30,6 +30,7 @@ new_transaction = Transaction.new
         new_portfolio.total_units = new_transaction.units
 
         new_portfolio.save!
+        redirect_to portfolios_path
 
         else
         update_portfolio = Portfolio.find_by(user_id: new_transaction.user_id, currency_id: new_transaction.currency_id)
@@ -37,7 +38,7 @@ new_transaction = Transaction.new
         update_portfolio.total_units = update_portfolio.total_units + new_transaction.units
 
         update_portfolio.save
-
+        redirect_to portfolios_path
         #code
       end
 
@@ -59,7 +60,7 @@ new_transaction = Transaction.new
 
 
       # spec_portfolio = Portfolio.where(user_id: new_transaction.user_id, currency_id: new_transaction.currency_id)
-        redirect_to portfolios_path
+      redirect_to portfolios_path
     end
 
     end
