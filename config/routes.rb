@@ -10,13 +10,18 @@ Rails.application.routes.draw do
 
   root 'static#home', as: 'home'
 
+  get '/overallstats', to: 'stats#index'
+
   resources :portfolios
 
   resources :transactions
 
 
 
-  get '/analysis', to: 'analysis#show', as: 'analysis'
+  get '/analysis', to: 'analysis#show'
+  get '/stats', to: 'stats#index'
+
+  #  as: 'analysis'
   # get '/portfolio', to:'portfolio#show', as: 'portfolio'
 
   resources :social_trading

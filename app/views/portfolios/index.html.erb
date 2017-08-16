@@ -6,9 +6,13 @@
 
 
 <%#= @user_portfolio.inspect %>
+
+
+<%#= @user_portfolio.inspect %>
 <% @user_portfolio.each_with_index do |user, index| %>
 
 <ul>
+
 
 
   <% if user.currency.currency_symbol == 'XRP' %>
@@ -27,6 +31,7 @@
       <%= f.label :Units %>
       <%= f.number_field :units, :class => 'text_field', :step => 0.01, :min => 0.01, :max => user.total_units, :required => true %>
       <%= f.submit "Sell" %>
+      <h5>Last transaction: <%= user[:updated_at] %></h5>
     <% end %>
     </li>
     <% else %>
@@ -45,6 +50,7 @@
         <%= f.label :Units %>
         <%= f.number_field :units, :class => 'text_field', :step => 0.01, :min => 0.01, :max => user.total_units, :required => true %>
         <%= f.submit "Sell" %>
+        <h5>Last transaction: <%= user[:updated_at] %></h5>
       <% end %>
       <% end %>
 
