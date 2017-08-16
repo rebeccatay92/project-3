@@ -7,7 +7,8 @@ $('.sell_currency').on('keyup', '.text_field' , function(e){
 // console.log(e.target.value);
 var units = e.target.value
 // console.log($(this).parent().parent().children('.sell_price')[0].innerText);
-var priceNode = $(this).parent().parent().children('.buy_price')[0]
+var priceNode = $(this).parent().parent().children('.sell_price')[0]
+console.log(priceNode);
 var priceString = priceNode.innerText
 var price = priceString.split('$')[1]
 console.log('price is ' + price + 'and there are ' + units + 'units')
