@@ -1,20 +1,23 @@
-
-<% if params[:id] == current_user.id %>
-<h1>Active Trader: <%= @active_trader.name %> (Rank #<%= @trader_ranking %>)</h1>
-
-<%= link_to "Back to Active Traders List", social_trading_index_path %>
-<br>
-<br>
+<% if params[:id].to_s != current_user.id.to_s %>
+	<h1>AAA</h1>
+	<h1>params id <%= params[:id].to_s %></h1>
+	<h1><%= current_user.id.to_s %></h1>
+	<h1>Active Trader: <%= @active_trader.name %> (Rank #<%= @trader_ranking %>)</h1>
+	<%= link_to "Back to Active Traders List", social_trading_index_path %>
+	<br>
+	<br>
 <% else %>
-<h1>Account Overview</h1>
-
-
-
-
+	<h1>BBB</h1>
+	<h1>params id <%= params[:id].to_s %></h1>
+	<h1><%= current_user.id.to_s %></h1>
+	<h1>Account Overview</h1>
 <% end %>
 
 
-<h2>Overview (as of <%= @date_now %>, <%= @time_now %>)</h2>
+<h2 class="overview-date-time"></h2>
+
+<%#= @time_now %>
+<%#= @date_now %>
 
 <h3>Credit Balance</h3>
 
@@ -78,4 +81,8 @@ US$<%= @total_account_value %>
 		</tbody>
 
 	</table>
+
 </div>
+
+<%= content_tag :div, class: "dtn", data: {dateTimeNow: @date_time_now} do %>
+<% end %>
