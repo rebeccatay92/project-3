@@ -1,0 +1,14 @@
+<br><br>
+<h2>Stats</h2>
+
+<p>Total Users: <%= @total_users %></p>
+
+<p>No of buy transactions: <%= @buytransactions %></p>
+<p>No of sell transactions: <%= @selltransactions %></p>
+
+<p>Profit from buy: US$<%= @profitbuy.to_f %></p>
+<p>Profit from sell: US$<%= @profitsell.to_f %></p>
+<p>Overall profit: US$<%= '%.2f' % (@profitsell.to_f + @profitbuy.to_f) %></p>
+<p>Most transacted currency: <%= @most_transacted.name %> (<%= '%.2f' % @percent_trades_highest %>%)</p>
+
+<p>Latest transaction: <%= @latest_transaction.created_at %></p>

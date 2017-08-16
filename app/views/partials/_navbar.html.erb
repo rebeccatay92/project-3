@@ -4,7 +4,10 @@
     <p>Currently logged in as <i><%= current_user.name %></i></p>
   <% end %>
 
+<% unless user_signed_in? %>
   <span><%=link_to "Home", home_path%></span>
+<% end %>
+
   <span><%=link_to "Analysis", analysis_path %></span>
 
 <% if user_signed_in? %>
