@@ -7,7 +7,8 @@ end
 # ails generate model voter city:references grp:references profession:references firstname:string middlename:string lastname:string comments:text birthday:date
 
 gem 'jquery-rails'
-gem 'metrics-graphics-rails'
+gem 'metrics-graphics-rails', :git => 'https://github.com/merejarvis/metrics-graphics-rails.git'
+
 gem 'devise'
 gem 'pry'
 gem 'faker'
