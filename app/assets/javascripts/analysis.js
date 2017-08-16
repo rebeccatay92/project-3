@@ -173,6 +173,7 @@ $(document).on('turbolinks:load', function (event) {
       var maxY = maxValues[0] //finding max of all lines
 
       MG.data_graphic({
+        title: currencySym + '(USD)',
         data: dataArr,
         width: 1000,
         height: 500,
