@@ -1,5 +1,4 @@
 class SocialTradingController < ApplicationController
-
 require 'date'
 
 # def show
@@ -16,7 +15,7 @@ require 'date'
     # p today.to_datetime
     # p date_90days_ago
 
-    
+
     all_past90days_transactions = Transaction.where(created_at: date_90days_ago..dt_today)
 
     # all_past90days_transactions.each do |record|
@@ -58,15 +57,15 @@ require 'date'
     # render html: "aaa #{aaa}; bbb #{bbb}"
     @active_trader = User.find(arr[0])
     @trader_ranking = arr[1]
-    
+
     ############################################################
-    ### get lastest coins prices to calculate current market value of coins 
+    ### get lastest coins prices to calculate current market value of coins
     ############################################################
 
     current_price_url = 'https://min-api.cryptocompare.com/data/pricemulti?fsyms=BTC,ETH,XRP,LTC,DASH&tsyms=USD'
     price = HTTParty.get(current_price_url)
 
-    # timestamp market price of coins 
+    # timestamp market price of coins
     t = Time.now
     t = t.to_f * 1000
 
@@ -130,7 +129,7 @@ require 'date'
 
       txn.push(transaction[:units])
 
-      unit_price = transaction[:amount_unit] 
+      unit_price = transaction[:amount_unit]
 
       txn.push('%.2f' % unit_price)
       txn.push(transaction[:created_at].to_date)

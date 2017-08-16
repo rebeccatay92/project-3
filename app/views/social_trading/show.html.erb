@@ -1,15 +1,15 @@
 <% if params[:id].to_s != current_user.id.to_s %>
-	<h1>AAA</h1>
-	<h1>params id <%= params[:id].to_s %></h1>
-	<h1><%= current_user.id.to_s %></h1>
+	<!-- <h1>AAA</h1>
+	<h1>params id <%#= params[:id].to_s %></h1>
+	<h1><%#= current_user.id.to_s %></h1> -->
 	<h1>Active Trader: <%= @active_trader.name %> (Rank #<%= @trader_ranking %>)</h1>
 	<%= link_to "Back to Active Traders List", social_trading_index_path %>
 	<br>
 	<br>
 <% else %>
-	<h1>BBB</h1>
-	<h1>params id <%= params[:id].to_s %></h1>
-	<h1><%= current_user.id.to_s %></h1>
+	<!-- <h1>BBB</h1>
+	<h1>params id <%#= params[:id].to_s %></h1>
+	<h1><%#= current_user.id.to_s %></h1> -->
 	<h1>Account Overview</h1>
 <% end %>
 
@@ -25,7 +25,7 @@ US$<%= @credit_remaining %>  <!-- @active_trader.credits_remaining -->
 
 <h3>Total Portfolio Value</h3>
 
-US$<%= @total_portfolio_value %>
+US$<%= '%.2f' % @total_portfolio_value %>
 
 <h3>Total Account Worth</h3>
 
