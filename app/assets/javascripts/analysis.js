@@ -187,7 +187,7 @@ $(document).on('turbolinks:load', function (event) {
         yax_count: 5,
         y_extended_ticks: true,
         min_y_from_data: true,
-        max_y: maxY * 1.01,
+        max_y: maxY * 1.001,
         legend: legendArr,
         aggregate_rollover: true,
         decimals: 4
