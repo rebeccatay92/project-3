@@ -2,23 +2,22 @@ class SocialTradingController < ApplicationController
 
 require 'date'
 
-def show
+# def show
 
-end
+# end
 
   def index
-    #code
     today = Date.today
+    dt_today = DateTime.now
     date_90days_ago = today - 90
-    dt_date_90days_ago = date_90days_ago.to_datetime
+    # dt_date_90days_ago = date_90days_ago.to_datetime
 
 
     # p today.to_datetime
     # p date_90days_ago
 
-    # Transactions.where(created_at: (Time.now.midnight - 1.day)..Time.now.midnight)
-
-    all_past90days_transactions = Transaction.where(created_at: dt_date_90days_ago..today)
+    
+    all_past90days_transactions = Transaction.where(created_at: date_90days_ago..dt_today)
 
     # all_past90days_transactions.each do |record|
     #   p record
@@ -51,7 +50,6 @@ end
     @active_from = date_90days_ago
     @active_to = today
 
-
   end
 
   def show
@@ -61,25 +59,21 @@ end
     @active_trader = User.find(arr[0])
     @trader_ranking = arr[1]
     
-
-
-    ##############################
-    ### get lastest coins prices
-    ##############################
+    ############################################################
+    ### get lastest coins prices to calculate current market value of coins 
+    ############################################################
 
     current_price_url = 'https://min-api.cryptocompare.com/data/pricemulti?fsyms=BTC,ETH,XRP,LTC,DASH&tsyms=USD'
-
     price = HTTParty.get(current_price_url)
-    # priceBTC= price["BTC"]["USD"]
-    # priceETH= price["ETH"]["USD"]
-    # priceXRP= price["XRP"]["USD"]
-    # priceLTC= price["LTC"]["USD"]
-    # priceDASH= price["DASH"]["USD"]
 
+    # timestamp market price of coins 
     t = Time.now
-    @date_now = t.strftime('%F')
-    @time_now = t.strftime('%R')
+    t = t.to_f * 1000
 
+    # ruby server date/time
+    @date_time_now = t
+
+    # retrieve all portfolios of a user
     all_portfolios = Portfolio.where(user_id: arr[0])
     @user_portfolios = []
     @total_portfolio_value = 0
@@ -99,9 +93,24 @@ end
     @total_account_value = '%.2f' %(@credit_remaining + @total_portfolio_value)
     @credit_remaining = '%.2f' %(@active_trader.credits_remaining)
 
-    today = Date.today
+    today = DateTime.now # Date.today
     date_90days_ago = today - 90
     dt_date_90days_ago = date_90days_ago.to_datetime
+
+
+    #########
+
+    # print "xxxxxxxxxxxxxxxxxxxxxxxx"
+    # print "today"
+    # p today
+    # print "date_90days_ago"
+    # p date_90days_ago
+    # print "dt_date_90days_ago"
+    # p dt_date_90days_ago
+    # print "yyyyyyyyyyyyyyyyyyyyyyyyy"
+
+    ########
+
 
     all_past90days_transactions = Transaction.where(created_at: dt_date_90days_ago..today, user_id: arr[0])
 
@@ -121,12 +130,27 @@ end
 
       txn.push(transaction[:units])
 
-      unit_price = transaction[:amount_unit]/transaction[:units]
+      unit_price = transaction[:amount_unit] 
 
       txn.push('%.2f' % unit_price)
       txn.push(transaction[:created_at].to_date)
       @all_past90days_transactions.push(txn)
     end
+
+    #########
+
+    # print "xxxxxxxxxxxxxxxxxxxxxxxx"
+    # all_past90days_transactions.each do |transaction|
+    #   print ">>>>>>Record "
+    #   p transaction[:created_at]
+    #   print ">>>>>>"
+    # end
+    # print "yyyyyyyyyyyyyyyyyyyyyyyyy"
+
+    ########
+
+
+
     @all_past90days_transactions = @all_past90days_transactions.reverse
   end
 

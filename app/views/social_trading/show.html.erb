@@ -14,7 +14,10 @@
 <% end %>
 
 
-<h2>Overview (as of <%= @date_now %>, <%= @time_now %>)</h2>
+<h2 class="overview-date-time"></h2>
+
+<%#= @time_now %>
+<%#= @date_now %>
 
 <h3>Credit Balance</h3>
 
@@ -78,4 +81,8 @@ US$<%= @total_account_value %>
 		</tbody>
 
 	</table>
+
 </div>
+
+<%= content_tag :div, class: "dtn", data: {dateTimeNow: @date_time_now} do %>
+<% end %>
