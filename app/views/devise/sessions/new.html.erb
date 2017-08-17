@@ -1,26 +1,134 @@
-<h2>Log in</h2>
+<div class="wrapper">
+    <div class="header-wrapper">
+              <div id="header" class="sticky">
+                    <div class="container">
+                        <a href="/"><span class="handy-logo"></span></a>
+                          <div class="menu desktop-only">
+                            <nav>
+                              <ul class="nav nav-pills pull-right" >
+                              <li class=" ">
+                                  <%=link_to "Live Exchange", analysis_path, :class=>'nav-link'%>
+                              </li>
 
-<%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
-  <div class="field">
-    <%= f.label :email %><br />
-    <%= f.email_field :email, autofocus: true %>
+                          <% if user_signed_in? %>
+                              <li class=" ">
+                                  <%=link_to "Portfolio", portfolios_path, :class=>'nav-link'%>
+                              </li>
+                              <li class=" ">
+                                  <%=link_to "Account", social_trading_path(current_user.id), :class=>'nav-link' %>
+                              </li>
+                              <li class=" ">
+                                  <%=link_to "Social Trading", social_trading_index_path, :class=>'nav-link'%>
+                              </li>
+                              <li class=" ">
+                                  <%=link_to "Log Out", destroy_user_session_path, method: :delete, :class=>'nav-link'%>
+                              </li>
+
+                          <% else %>
+                              <li class=" ">
+                                <%=link_to "Register", new_user_registration_path, :class=>'nav-link', :title=>'Register'%>
+                              </li>
+                              <li class=" active">
+                                  <%=link_to "Log In", new_user_session_path, :class=>'nav-link', :title=>'Log In'%>
+                              </li>
+
+                          <% end %>
+                          <li class= "">
+                              <a class="handy-btn btn-outline-animated btn-orange-white" href="/contact" title="Contact Us" target="_blank"><svg style="background-color: transparent !important"><rect x="0" y="0" fill="none" width="100%" height="100%"/></svg>Contact Us</a>
+                          </li>
+                          </ul>
+                        </nav>
+                      </div>
+              </div>
+          </div>
   </div>
+</div>
 
-  <div class="field">
-    <%= f.label :password %><br />
-    <%= f.password_field :password, autocomplete: "off" %>
-  </div>
 
-  <% if devise_mapping.rememberable? -%>
-    <div class="field">
-      <%= f.check_box :remember_me %>
-      <%= f.label :remember_me %>
+
+<div style='padding-left:400px'>
+        <h2>Log in</h2>
+
+        <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
+          <div class="field">
+            <%= f.label :email %><br />
+            <%= f.email_field :email, autofocus: true,:style=>'width:450px' %>
+          </div>
+
+          <div class="field">
+            <%= f.label :password %><br />
+            <%= f.password_field :password, autocomplete: "off",:style=>'width:450px' %>
+          </div>
+
+          <% if devise_mapping.rememberable? -%>
+            <div class="field">
+              <%= f.check_box :remember_me %>
+              <%= f.label :remember_me %>
+            </div>
+          <% end -%>
+          <br>
+          <div class="actions">
+            <%= f.submit "Log in" %>
+          </div>
+        <% end %>
+
+        <%= render "devise/shared/links" %>
+<br><br>
+      </div>
+
+
+
+
+<div class="footer-wrapper">
+    <div id="footer">
+<div class="section sign-up" >
+<div class="container">
+
+<form
+action="//handy.us11.list-manage.com/subscribe/post?u=74ab25dc9a29af4f96c2b9c28&amp;id=8dbc838e06"
+method="POST"
+id="sign_up_form_mailchimp"
+class="form-horizontal desktop-only"
+>
+<div class="form-group" style="vertical-align:middle">
+
+
+         <h2 style='text-align:center !important'>Create an account to start trading today!</h2>
+         <button style='border-radius:7px; float:none; margin-left:210px' onclick="location.href='/register'" id="sign_up_form_submit_mailchimp" class="btn submit">Create Account</button>
+
+
+    <div class="input-control submit-btn-container">
+
+
+
     </div>
-  <% end -%>
+</div>
+</form>
+</div>
+</div>
+<div class="section footer">
+<div class="container">
+<div class="col-md-6">
+  <%= image_tag 'kk_logo.png', :style=>"width:220px"%>
+  <div class="social-container">
+        <ul class="social-bar">
+            <li><img style="width:100px" src="https://assets-cdn.github.com/images/modules/logos_page/Octocat.png" alt=""></li>
 
-  <div class="actions">
-    <%= f.submit "Log in" %>
-  </div>
-<% end %>
+            <li><%= image_tag ('ga.png'), :style=>'width:80px' %></li>
 
-<%= render "devise/shared/links" %>
+            <li><img style="width:90px; padding-left:15px" src="https://ky7jb123t6m17he4cm80n26x-wpengine.netdna-ssl.com/wp-content/uploads/2015/03/gmail-icon2.png" alt=""></li>
+
+        </ul>
+    </div>
+    <div class="copyright-container">
+        <div class="copyright">All Rights Reserved KryptoKnight, Co. © <%= image_tag ('comic2.png'), :style=>'width:90px' %>
+        </div>
+
+        <nav class="tnc">
+          <a href="xxxx">Terms & Conditions</a>
+        </nav>
+    </div>
+</div>
+
+</div>
+</div>
