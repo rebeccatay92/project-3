@@ -18,10 +18,7 @@ A cryptocurrency analysis & trading tool which allow users to view other usersâ€
 ![ERD](ERD-3.jpg)
 
 ## Model Schemas
-* User => user_id: email: password: credits_remaining:
-* Currency => currency_id: currency_name:
-* Portfolio => portfolio_id: user_id: currency_id: total_units:  
-* Transactions => transactions_id: user_id: currency_id: type: units: amount/unit: amount:
+![Schemas](models.001.jpeg)
 
 ## Wireframes
 * Graph page
@@ -56,13 +53,21 @@ A cryptocurrency analysis & trading tool which allow users to view other usersâ€
 - Using more powerful charting library such as D3, for a greater variety of visual representation
 
 ## Working in a Team
-- Pair programming
-- Planning and working in phases
-- Task tracker: Trello
-- Scrum
-- Feature Driven development
-- AGILE framework
+- Phase 1
 
+![Phase1](Untitled.001.jpeg)
+
+- Phase 2
+
+![Phase2](Untitled.002.jpeg)
+
+* Feature driven development approach was utilised throughout the project. This increased efficiency; the clean delegation ensured members were clear on their roles and reduced difficulties during merging of files.
+
+* Other techniques in the AGILE development such as pair programming and daily scrums were used.
+
+* Trello was utilised to keep track of tasks and assist in project management.
+
+![Phase2](model schema.013.jpeg)
 
 ## Live Version
 
@@ -79,7 +84,6 @@ https://kryptoknight.herokuapp.com
 * Graphing Module: MetricsGraphics.js
 
 
-
 ## Authors
 
 * **Jerald** - *Responsible for wireframing, finance knowledge, HTML, CSS* - [karl-x](https://github.com/karl-x)
@@ -89,4 +93,4 @@ https://kryptoknight.herokuapp.com
 
 ## Acknowledgments
 
-* Hat tip to anyone who's code was used, for example [this was a useful starting point for creating this template](https://gist.github.com/PurpleBooth/109311bb0361f32d87a2).
+* WDI 11 Tutor Prima Aulia & teaching assistant Shimei for the constant guide and encouragement.
