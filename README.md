@@ -1,6 +1,6 @@
 # KryptoKnight
 
-A cryptocurrency analysis & trading tool.
+A cryptocurrency analysis & trading tool which allow users to view other users’ portfolios and transactions.
 
 ## User Stories
 
@@ -16,10 +16,10 @@ A cryptocurrency analysis & trading tool.
 
 
 ## Features list
-* Signin, login, logout
-* View graphical data of top XX cryptocurrencies over XX timelines:
+* Sign up, login, logout
+* View graphical data of top 5 cryptocurrencies over XX timelines:
 * View XX technical indicators:
-* Comparison of performances of top XX cryptocurrencies over specific timelines
+* Comparison of performances of top 5 cryptocurrencies over specific timelines
 * Trader portfolio of cryptocurrencies
 * Buy and sell top ten cryptocurrencies with provided XX virtual credits
 * View portfolio performance data such as profit & loss
@@ -41,13 +41,13 @@ A cryptocurrency analysis & trading tool.
 ## How to Use
 
 1. Run bundle install:
-2. Modification of metricsgraphics default attributes:
+2. If customizing metricsgraphics styling (eg: specifying background colors, line thickness etc), fork the gem 'metrics-graphics-rails' on GitHub. Modify the css stylesheet as needed. Modify the Gemfile to `'metrics-graphics-rails', :git => 'your forked gem repo url'`
 
 
 ## Challenges (Resolved!)
 
 - Time conversion from server to local computer time
-- Graph line colours
+- Customizing chart for dark backgrounds
 
 ## Features we wished we could include for this Version
 
@@ -58,6 +58,7 @@ A cryptocurrency analysis & trading tool.
 
 
 ## Future Improvements
+- Use of ActionCable to update prices without the use of a page refresh
 - Actual trading Site with a different business model
 - Automated algorithmic trading
 - Scale up number of cryptocurrencies & technical indicators
@@ -70,7 +71,7 @@ A cryptocurrency analysis & trading tool.
 - Planning and working in phases
 - Task tracker: Trello
 - Scrum
-- Feature driven development
+- Feature Driven development
 - AGILE framework
 
 
@@ -85,9 +86,8 @@ https://kryptoknight.herokuapp.com
 * jQuery
 * jQuery data tables
 * Ruby on Rails
-* CSS Framework: Materialize
-* Cryptocompare API
-* Graphing Module: Graphicsmetrics
+* CryptoCompare API
+* Graphing Module: MetricsGraphics.js
 
 
 
@@ -95,7 +95,7 @@ https://kryptoknight.herokuapp.com
 
 * **Jerald** - *Responsible for wireframing, finance knowledge, HTML, CSS* - [karl-x](https://github.com/karl-x)
 * **Jer Kwang** - *Responsible for Social Trading, jQuery data table* - [kepler62f](https://github.com/kepler62f)
-* **Rebecca Tay** - *Responsible for Analysis, Cryptocompare API integration, GraphicsMetrics, Technical indicators * - [rebeccatay92](https://github.com/rebeccatay92)
+* **Rebecca** - *Responsible for Analysis, Cryptocompare API integration, GraphicsMetrics, Technical indicators * - [rebeccatay92](https://github.com/rebeccatay92)
 
 
 ## Acknowledgments
