@@ -32,8 +32,6 @@ new_transaction = Transaction.new
         new_portfolio.save!
         redirect_to portfolios_path
 
-        redirect_to portfolios_path
-
         else
         update_portfolio = Portfolio.find_by(user_id: new_transaction.user_id, currency_id: new_transaction.currency_id)
 

@@ -182,6 +182,7 @@ $(document).on('turbolinks:load', function (event) {
         x_accessor: 'time',
         y_accessor: 'value',
         x_label: 'Time',
+        y_label: null,
         yax_units: 'USD$',
         yax_format: d3.format('2'),
         yax_count: 5,
@@ -200,6 +201,7 @@ $(document).on('turbolinks:load', function (event) {
       })
 
       MG.data_graphic({
+        title: 'Volume',
         data: volume,
         chart_type: 'histogram',
         binned: true,
