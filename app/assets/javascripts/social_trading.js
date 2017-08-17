@@ -1,6 +1,6 @@
-$(document).on('turbolinks:load', function (event) {  
+$(document).on('turbolinks:load', function (event) {
 
-  console.log('javascript is running...')  
+  console.log('javascript is running...')
 
   $('.social_trading.index').ready(function () {
 
@@ -23,9 +23,9 @@ $(document).on('turbolinks:load', function (event) {
         searching: false,
         ordering: false,
         select: false,
-        paging: true,
+        paging: false,
         pagingType: "simple"
       })
-    }   
+    }
   })
 })

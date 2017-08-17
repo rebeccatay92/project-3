@@ -51,15 +51,14 @@
 
 
         <h1 class="section-header"><%= image_tag ('briefcase.png'), :style=>'width:50px' %>
-          <% if params[:id] == current_user.id %>
-          <h1>Active Trader: <%= @active_trader.name %> (Rank #<%= @trader_ranking %>)
-          <%= link_to "Back to Active Traders List", social_trading_index_path %>
-          <br>
+          <% if params[:id].to_s != current_user.id.to_s %>
+          Active Trader: <%= @active_trader.name %> (Rank #<%= @trader_ranking %>)
+          <%#= link_to "Back to Active Traders List", social_trading_index_path %>
           <br>
           <% else %>
-          <%= current_user.name %>'s Account Overview</h1>
+          <%= current_user.name %>'s Account Overview</h1></h1>
 <% end %>
-</h1>
+
 
 <h2 class="overview-date-time"></h2>
 
