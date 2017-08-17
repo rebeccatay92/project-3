@@ -20,7 +20,7 @@ Rails.application.routes.draw do
 
   get '/analysis', to: 'analysis#show'
   get '/stats', to: 'stats#index'
-
+  get '/contact', to: 'static#contact', as: 'contact'
   #  as: 'analysis'
   # get '/portfolio', to:'portfolio#show', as: 'portfolio'
 

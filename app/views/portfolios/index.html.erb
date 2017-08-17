@@ -1,148 +1,514 @@
-<h1><%= current_user.name %>'s PORTFOLIO</h1>
+<div class="wrapper">
+    <div class="header-wrapper">
+    <div id="header" class="sticky">
+        <div class="container">
+            <a href="/"><span class="handy-logo"></span></a>
+              <div class="menu desktop-only">
+                <nav>
+                  <ul class="nav nav-pills pull-right" >
+                  <li class=" ">
+                      <%=link_to "Live Exchange", analysis_path, :class=>'nav-link'%>
+                  </li>
 
-<h3>Credit Balance: US$<%= '%.2f' % current_user.credits_remaining %></h3>
-<h3>Total Portfolio Value: US$<%= '%.2f' % @total_val %> </h3>
-<h3>Total Account Worth: US$<%= '%.2f' % (@total_val + current_user.credits_remaining) %> </h3>
+              <% if user_signed_in? %>
+                  <li class=" active ">
+                      <%=link_to "Portfolio", portfolios_path, :class=>'nav-link'%>
+                  </li>
+                  <li class=" ">
+                      <%=link_to "Account", social_trading_path(current_user.id), :class=>'nav-link' %>
+                  </li>
+                  <li class=" ">
+                      <%=link_to "Social Trading", social_trading_index_path, :class=>'nav-link'%>
+                  </li>
+                  <li class=" ">
+                      <%=link_to "Log Out", destroy_user_session_path, method: :delete, :class=>'nav-link'%>
+                  </li>
+
+              <% else %>
+                  <li class=" ">
+                    <%=link_to "Register", new_user_registration_path, :class=>'nav-link', :title=>'Register'%>
+                  </li>
+                  <li class=" ">
+                      <%=link_to "Log In", new_user_session_path, :class=>'nav-link', :title=>'Log In'%>
+                  </li>
+
+              <% end %>
+              <li class= "">
+                  <a class="handy-btn btn-outline-animated btn-orange-white" href="/contact" title="Contact Us" target="_blank"><svg style="background-color: transparent !important"><rect x="0" y="0" fill="none" width="100%" height="100%"/></svg>Contact Us</a>
+              </li>
+              </ul>
+            </nav>
+          </div>
+        </div>
+    </div>
+    </div>
+</div>
+
+<div ui-view="" class="ng-scope" style=""><div full-height="" id="wallet-dashboard" class="ng-scope" style="min-height: 600px;">
+  <div class="container" style='background-color:#f8f8f8'>
+
+    <div id="wallet-section">
 
 
-<%#= @user_portfolio.inspect %>
+        <h1 class="section-header"><%= image_tag ('briefcase.png'), :style=>'width:50px' %> <%= current_user.name %>'s Portfolio</h1>
 
+        <div class="row account first">
+                    <div class="col-md-4">
+                      <div class="account-icon">
+                        <%= image_tag ("usflag.png"), :style=>"width:70px" %>
+                      </div>
+                      <div class="account-label">
+                        <div class="currency-short-form hidden-xs hidden-sm">Credits</div>
+                        <div class="currency-full-name">Virtual Dollars</div>
+                      </div>
+                    </div>
+                    <div class="col-md-2 account-wallet">
+                      <div class="account-balance">
+                        <div class="balance-label hidden-xs hidden-sm">Credit Balance</div>
+                        <span class="currency-symbol">USD</span>
+                        <span class="amount ng-binding"><%= '%.2f' % current_user.credits_remaining %></span>
+                      </div>
+                    </div>
 
-<%#= @user_portfolio.inspect %>
-<% @user_portfolio.each_with_index do |user, index| %>
+                    <div class="col-md-1 account-wallet">
+                      <div class="account-balance">
+                        <div class="balance-label hidden-xs hidden-sm"><br></div>
+                        <span class="amount ng-binding"> + </span>
+                      </div>
+                    </div>
 
-<ul class= 'sell_currency'>
+                    <div class="col-md-2 account-wallet">
+                      <div class="account-balance">
+                        <div class="balance-label hidden-xs hidden-sm">Portfolio Value</div>
+                        <span class="currency-symbol">USD</span>
+                        <span class="amount ng-binding"><%= '%.2f' % @total_val %></span>
+                      </div>
+                    </div>
 
-  <% if user.currency.currency_symbol == 'XRP' %>
-    <!-- true -->
-    <li>
-    <h3><%= user.currency.name %> (<%= user.currency.currency_symbol%>) </h3>
-      <h3><%= user.currency.currency_symbol  %><%=  user.total_units %>  &asymp; US$<%= '%.3f' % @portfolio_value[index]%> </h3>
-    <!-- <h3>Total Value: <%#= '%.3f' % @portfolio_value[index]%> ~ </h3> -->
-    <!-- <h3>Price/unit: <%#= '%.3f' % @unit_price[index] %> </h3> -->
-    <h3 class = 'sell_price'>Sell price (unit): US$<%= '%.3f' % (@unit_price[index]* 0.99) %></h3>
+                    <div class="col-md-1 account-wallet">
+                      <div class="account-balance">
+                        <div class="balance-label hidden-xs hidden-sm"><br></div>
+                        <span class="amount ng-binding"> = </span>
+                      </div>
+                    </div>
 
-    <%= form_for @new_transaction do |f| %>
-      <%= f.hidden_field :currency_id, value: user.currency.id %>
-      <%= f.hidden_field :amount_unit, value:'%.3f' % (@unit_price[index]* 0.99) %>
-      <%= f.hidden_field :txn_type, value: 2 %>
-      <%= f.label :Units %>
-      <%= f.number_field :units, :class => 'text_field', :step => 0.01, :min => 0.01, :max => user.total_units, :required => true %>
+                    <div class="col-md-2 account-wallet" >
+                      <div class="account-balance">
+                        <div class="balance-label hidden-xs hidden-sm">Total Net Worth</div>
+                        <span class="currency-symbol">USD</span>
+                        <span class="amount ng-binding"><%= '%.2f' % (@total_val + current_user.credits_remaining) %></span>
+                      </div>
+                    </div>
+                  </div>
 
-      <%= f.submit "Sell" %>
-      <h4 id = 'cost'>Transaction value: </h4>
-      <h5>Last transaction: <%= user[:updated_at] %></h5>
-    <% end %>
-    </li>
-    <% else %>
-      <li>
-        <h3><%= user.currency.name %> (<%= user.currency.currency_symbol%>) </h3>
-          <h3><%= user.currency.currency_symbol  %><%=  user.total_units %>  &asymp; US$<%= '%.2f' % @portfolio_value[index]%> </h3>
+      <!--Portfolio Logic  -->
 
-      <!-- <h3><%= user.currency.name %> (<%= user.currency.currency_symbol%>) Units: <%=  user.total_units %></h3>
-      <h3>Total Value: <%= '%.2f' % @portfolio_value[index]  %></h3>
-      <h3>Price/unit: <%= '%.2f' % @unit_price[index] %></h3> -->
-      <h3 class = 'sell_price'>Sell price (unit): US$<%= '%.2f' % (@unit_price[index]* 0.99) %></h3>
-      <%= form_for @new_transaction do |f| %>
-        <%= f.hidden_field :currency_id, value: user.currency.id %>
-        <%= f.hidden_field :amount_unit, value:'%.3f' % (@unit_price[index]* 0.99) %>
-        <%= f.hidden_field :txn_type, value: 2 %>
-        <%= f.label :Units %>
-        <%= f.number_field :units, :class => 'text_field', :step => 0.01, :min => 0.01, :max => user.total_units, :required => true %>
+        <% @user_portfolio.each_with_index do |user, index| %>
+        <ul class='sell_currency' style="list-style:none">
 
-        <%= f.submit "Sell" %>
-        <h4 id = 'cost'>Transaction value: </h4>
-        <h5>Last transaction: <%= user[:updated_at] %></h5>
+          <li>
+            <!--BTC/USD  -->
+            <div id="trade-section">
+              <div class="row trade-pair-row ng-hide"  ng-show="loaded == true &amp;&amp; userCanHoldCurrency('USD')">
+                <div class="col-md-4 col-xs-11 pair-name">
+                  <div class="pair-balls">
+                    <%= image_tag ("#{ user.currency.name }.png"), :style=>'width:60px; height:60px; vertical-align:top' %>
+                    <%= image_tag ('transfer.png') %>
+                    <%= image_tag ('usflag.png')%>
+                  </div>
+                  <div class="currency-full-name" style="padding-left:15px">
+                    <%= user.currency.name %>
+                    to
+                    US Dollars
+                  </div>
+                </div>
+                <!-- bitcoin balance -->
+                <div class="col-md-3 account-wallet">
+                  <div class="account-balance">
+                    <div class="balance-label hidden-xs hidden-sm"><%= user.currency.currency_symbol%></div>
+                    <span class="currency-symbol"><%= user.currency.currency_symbol%></span>
+                    <span class="amount ng-binding"><%=  user.total_units %></span>
+                    <span class="dollar-equiv" ng-click="switchBtcDollarEquivalentCurrency()">
+                      ≈
+                      <span ng-bind="btcDollarEquivalent('BTC', balances.BTC, BtcDollarEquivalentCurrency) | currencyFormat: BtcDollarEquivalentCurrency" class="ng-binding "><h3 class='sell_price'>US$<%= '%.2f' % @portfolio_value[index]%></h3></span>
+                      <h5>Last transaction: <%= user[:updated_at] %></h5>
+                    </span>
+                  </div>
+                </div>
+                <!--sell action -->
+                <div class="col-md-4 " >
+                  <div class="col-xs-8 trade-action">
+                    <div class="trade-label" style="width:150%">
+                      Sell <%= user.currency.name %> for
+                    </div>
+                    <ticker class="sell-price ng-isolate-scope" currency-pair="BTCUSD" direction="sell">
+                      <span class="ticker sell-price">
+                        <span class="ticker-currency ng-binding">US$</span>
+                        <span class="ticker-dollars"><%= '%.2f' % (@unit_price[index]* 0.99) %></span>/unit
+                      </span>
+                    </ticker>
+                    <%= form_for @new_transaction do |f| %>
+                      <%= f.hidden_field :currency_id, value: user.currency.id %>
+                      <%= f.hidden_field :amount_unit, value:'%.2f' % (@unit_price[index]* 0.99) %>
+                      <%= f.hidden_field :txn_type, value: 2 %>
+                      <%= f.number_field :units, :class => 'text_field', :step => 0.01, :min => 0.01, :max => user.total_units, :required => true %>
+                      <%= f.label :Units, :style=>'text-transform:lowercase' %> of <%= user.currency.currency_symbol%>
+                      <h4 id = 'cost'>Transaction value: </h4>
+                      <%= f.submit "Sell", :class=>'btn sell-btn trade-btn'%>
+                    <% end %>
+
+                  </div>
+              </div>
+            </div>
+          </div>
+        </li>
+      </ul>
       <% end %>
-      <% end %>
 
-      </li>
-    </ul>
 
-    <% end %>
-    <h1>Buy Currencies</h1>
+          <br><br>
+          <!--Buying Portion  =====================================-->
+          <div id="trade-section">
+            <h1 class="section-header">
+              <%= image_tag ('cart-plus.png'), :style=>'width:50px' %>
+              Buy Cryptocurrencies
+            </h1>
 
-    <div class="buy_currency">
+            <!--USD to BTC  -->
+            <div id="trade-section" style="border-top:0.5px solid #eee">
+              <div class="row trade-pair-row ng-hide" ng-show="loaded == true &amp;&amp; userCanHoldCurrency('USD')">
+                <div class="col-md-4 col-xs-11 pair-name">
+                  <div class="pair-balls">
+                    <%= image_tag ('usflag.png')%>
+                    <%= image_tag ('transfer.png') %>
+                    <%= image_tag ("Bitcoin.png"), :style=>'width:60px; height:60px; vertical-align:top' %>
+                  </div>
+                  <div class="currency-full-name" style="padding-left:15px">
+                    US Dollars to BTC
+                  </div>
+                </div>
+                <!-- BTC Equivalence -->
+                <div class="col-md-3 account-wallet">
+                  <div class="account-balance">
+                    <div class="balance-label hidden-xs hidden-sm">Conversion Rate</div>
+                    <span class="currency-symbol">BTC</span>
+                    <span class="amount ng-binding">1.0</span>
+                    <span class="dollar-equiv" ng-click="switchBtcDollarEquivalentCurrency()">
+                      ≈
+                      <span ng-bind="btcDollarEquivalent('BTC', balances.BTC, BtcDollarEquivalentCurrency) | currencyFormat: BtcDollarEquivalentCurrency" class="ng-binding">US$<%= '%.2f' % (@priceBTC*1.01) %></span>
+                    </span>
+                  </div>
+                </div>
+                <!--Buy BTC -->
+                <div class="col-md-4">
+                <div class="col-xs-7s trade-action">
+                  <div class="trade-label" style="width:150%">
+                    Buy Bitcoin for USD at
+                  </div>
+                  <!-- <ticker class="buy-price ng-isolate-scope" currency-pair="BTCUSD" direction="sell">
+                    <span class="ticker buy-price">
+                      <span class="ticker-currency ng-binding">US$</span>
+                      <span class="ticker-dollars ng-binding"><%= '%.2f' % (@priceBTC*1.01) %></span>
+                    </span>
+                  </ticker>
+                  <button class="btn buy-btn trade-btn" ng-click="usdUnavailable()">
+                    Buy
+                  </button> -->
+                  <%= form_for @new_transaction do |f| %>
+                    <%= f.hidden_field :currency_id, value:1 %>
+                    <%= f.hidden_field :amount_unit, :class=>'buyprice',value:'%.2f' % (@priceBTC*1.01) %>
+                    <%= f.hidden_field :txn_type, value: 1 %>
+                    <%= f.number_field :units, :class => 'text_field', :step => 0.01, :min => 0.01, :max => '%.2f'% (current_user.credits_remaining/@priceBTC), :required => true %>
+                    <%= f.label :Units, :style=>'text-transform: lowercase'%> of BTC
+                    <h4 id = 'cost'>Transaction value: </h4>
+                    <%= f.submit "Buy", :class=>'btn buy-btn trade-btn' %>
+                  <% end %>
 
-      <h3 id='liveBTC'>Bitcoin (BTC)</h3>
-      <h3 class = 'buy_price'>Buy price (unit): US$<%= '%.2f' % (@priceBTC*1.01) %> </h3>
-      <%= form_for @new_transaction do |f| %>
-        <%= f.hidden_field :currency_id, value:1 %>
-        <%= f.hidden_field :amount_unit, value:'%.2f' % (@priceBTC*1.01) %>
-        <%= f.hidden_field :txn_type, value: 1 %>
-        <%= f.label :Units %>
-        <%= f.number_field :units, :class => 'text_field', :step => 0.01, :min => 0.01, :max => '%.2f'% (current_user.credits_remaining/@priceBTC), :required => true %>
-        <%= f.submit "Buy" %>
-        <h4 id = 'cost'>Transaction value: </h4>
-      <% end %>
+
+                </div>
+              </div>
+            </div>
+          </div>
+
+
+          <!--USD to ETH  -->
+          <div id="trade-section">
+            <div class="row trade-pair-row ng-hide" ng-show="loaded == true &amp;&amp; userCanHoldCurrency('USD')">
+              <div class="col-md-4 col-xs-11 pair-name">
+                <div class="pair-balls">
+                  <%= image_tag ('usflag.png')%>
+                  <%= image_tag ('transfer.png') %>
+                  <%= image_tag ("Ethereum.png"), :style=>'width:60px; height:60px; vertical-align:top' %>
+                </div>
+                <div class="currency-full-name" style="padding-left:15px">
+                  US Dollars to ETH
+                </div>
+              </div>
+              <!-- ETH Equivalence -->
+              <div class="col-md-3 account-wallet">
+                <div class="account-balance">
+                  <div class="balance-label hidden-xs hidden-sm">Conversion Rate</div>
+                  <span class="currency-symbol">ETH</span>
+                  <span class="amount ng-binding">1.0</span>
+                  <span class="dollar-equiv" ng-click="switchBtcDollarEquivalentCurrency()">
+                    ≈
+                    <span ng-bind="btcDollarEquivalent('BTC', balances.BTC, BtcDollarEquivalentCurrency) | currencyFormat: BtcDollarEquivalentCurrency" class="ng-binding">US$<%= '%.2f' % (@priceETH*1.01) %></span>
+                  </span>
+                </div>
+              </div>
+              <!--Buy ETH -->
+              <div class="col-md-4">
+              <div class="col-xs-7s trade-action">
+                <div class="trade-label" style="width:150%">
+                  Buy Ethereum for USD at
+                </div>
+                <!-- <ticker class="buy-price ng-isolate-scope" currency-pair="BTCUSD" direction="sell">
+                  <span class="ticker buy-price">
+                    <span class="ticker-currency ng-binding">US$</span>
+                    <span class="ticker-dollars ng-binding"><%= '%.2f' % (@priceBTC*1.01) %></span>
+                  </span>
+                </ticker>
+                <button class="btn buy-btn trade-btn" ng-click="usdUnavailable()">
+                  Buy
+                </button> -->
+                <%= form_for @new_transaction do |f| %>
+                  <%= f.hidden_field :currency_id, value:2 %>
+                  <%= f.hidden_field :amount_unit, :class=>'buyprice',value:'%.2f' % (@priceETH*1.01) %>
+                  <%= f.hidden_field :txn_type, value: 1 %>
+                  <%= f.number_field :units, :class => 'text_field', :step => 0.01, :min => 0.01, :max => '%.2f'% (current_user.credits_remaining/@priceETH), :required => true %>
+                  <%= f.label :Units, :style=>'text-transform: lowercase'%> of ETH
+                  <h4 id = 'cost'>Transaction value: </h4>
+                  <%= f.submit "Buy", :class=>'btn buy-btn trade-btn' %>
+                <% end %>
+
+
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!--USD to XRP  -->
+        <div id="trade-section">
+          <div class="row trade-pair-row ng-hide" ng-show="loaded == true &amp;&amp; userCanHoldCurrency('USD')">
+            <div class="col-md-4 col-xs-11 pair-name">
+              <div class="pair-balls">
+                <%= image_tag ('usflag.png')%>
+                <%= image_tag ('transfer.png') %>
+                <%= image_tag ("Ripple.png"), :style=>'width:60px; height:60px; vertical-align:top' %>
+              </div>
+              <div class="currency-full-name" style="padding-left:15px">
+                US Dollars to XRP
+              </div>
+            </div>
+            <!-- XRP Equivalence -->
+            <div class="col-md-3 account-wallet">
+              <div class="account-balance">
+                <div class="balance-label hidden-xs hidden-sm">Conversion Rate</div>
+                <span class="currency-symbol">XRP</span>
+                <span class="amount ng-binding">1.0</span>
+                <span class="dollar-equiv" ng-click="switchBtcDollarEquivalentCurrency()">
+                  ≈
+                  <span ng-bind="btcDollarEquivalent('BTC', balances.BTC, BtcDollarEquivalentCurrency) | currencyFormat: BtcDollarEquivalentCurrency" class="ng-binding">US$<%= '%.3f' % (@priceXRP*1.01) %></span>
+                </span>
+              </div>
+            </div>
+            <!--Buy XRP -->
+            <div class="col-md-4">
+            <div class="col-xs-7s trade-action">
+              <div class="trade-label" style="width:150%">
+                Buy Ripple for USD at
+              </div>
+              <!-- <ticker class="buy-price ng-isolate-scope" currency-pair="BTCUSD" direction="sell">
+                <span class="ticker buy-price">
+                  <span class="ticker-currency ng-binding">US$</span>
+                  <span class="ticker-dollars ng-binding"><%= '%.2f' % (@priceBTC*1.01) %></span>
+                </span>
+              </ticker>
+              <button class="btn buy-btn trade-btn" ng-click="usdUnavailable()">
+                Buy
+              </button> -->
+              <%= form_for @new_transaction do |f| %>
+                <%= f.hidden_field :currency_id, value:3 %>
+                <%= f.hidden_field :amount_unit, :class=>'buyprice',value:'%.3f' % (@priceXRP*1.01) %>
+                <%= f.hidden_field :txn_type, value: 1 %>
+                <%= f.number_field :units, :class => 'text_field', :step => 0.01, :min => 0.01, :max => '%.3f'% (current_user.credits_remaining/@priceXRP), :required => true %>
+                <%= f.label :Units, :style=>'text-transform: lowercase'%> of XRP
+                <h4 id = 'cost'>Transaction value: </h4>
+                <%= f.submit "Buy", :class=>'btn buy-btn trade-btn' %>
+              <% end %>
+            </div>
+          </div>
+        </div>
+      </div>
+
+        <!--USD to LTC  -->
+        <div id="trade-section">
+          <div class="row trade-pair-row ng-hide" ng-show="loaded == true &amp;&amp; userCanHoldCurrency('USD')">
+            <div class="col-md-4 col-xs-11 pair-name">
+              <div class="pair-balls">
+                <%= image_tag ('usflag.png')%>
+                <%= image_tag ('transfer.png') %>
+                <%= image_tag ("Litecoin.png"), :style=>'width:60px; height:60px; vertical-align:top' %>
+              </div>
+              <div class="currency-full-name" style="padding-left:15px">
+                US Dollars to LTC
+              </div>
+            </div>
+            <!-- LTC Equivalence -->
+            <div class="col-md-3 account-wallet">
+              <div class="account-balance">
+                <div class="balance-label hidden-xs hidden-sm">Conversion Rate</div>
+                <span class="currency-symbol">LTC</span>
+                <span class="amount ng-binding">1.0</span>
+                <span class="dollar-equiv" ng-click="switchBtcDollarEquivalentCurrency()">
+                  ≈
+                  <span ng-bind="btcDollarEquivalent('BTC', balances.BTC, BtcDollarEquivalentCurrency) | currencyFormat: BtcDollarEquivalentCurrency" class="ng-binding">US$<%= '%.2f' % (@priceLTC*1.01) %></span>
+                </span>
+              </div>
+            </div>
+            <!--Buy LTC -->
+            <div class="col-md-4">
+            <div class="col-xs-7s trade-action">
+              <div class="trade-label" style="width:150%">
+                Buy Litecoin for USD at
+              </div>
+              <!-- <ticker class="buy-price ng-isolate-scope" currency-pair="BTCUSD" direction="sell">
+                <span class="ticker buy-price">
+                  <span class="ticker-currency ng-binding">US$</span>
+                  <span class="ticker-dollars ng-binding"><%= '%.2f' % (@priceBTC*1.01) %></span>
+                </span>
+              </ticker>
+              <button class="btn buy-btn trade-btn" ng-click="usdUnavailable()">
+                Buy
+              </button> -->
+              <%= form_for @new_transaction do |f| %>
+                <%= f.hidden_field :currency_id, value:4 %>
+                <%= f.hidden_field :amount_unit, :class=>'buyprice',value:'%.2f' % (@priceLTC*1.01) %>
+                <%= f.hidden_field :txn_type, value: 1 %>
+                <%= f.number_field :units, :class => 'text_field', :step => 0.01, :min => 0.01, :max => '%.2f'% (current_user.credits_remaining/@priceLTC), :required => true %>
+                <%= f.label :Units, :style=>'text-transform: lowercase'%> of LTC
+                <h4 id = 'cost'>Transaction value: </h4>
+                <%= f.submit "Buy", :class=>'btn buy-btn trade-btn' %>
+              <% end %>
+            </div>
+          </div>
+        </div>
+      </div>
+
+        <!--USD to Dash  -->
+        <div id="trade-section">
+          <div class="row trade-pair-row ng-hide" ng-show="loaded == true &amp;&amp; userCanHoldCurrency('USD')">
+            <div class="col-md-4 col-xs-11 pair-name">
+              <div class="pair-balls">
+                <%= image_tag ('usflag.png')%>
+                <%= image_tag ('transfer.png') %>
+                <%= image_tag ("Dash.png"), :style=>'width:60px; height:60px; vertical-align:top' %>
+              </div>
+              <div class="currency-full-name" style="padding-left:15px">
+                US Dollars to DASH
+              </div>
+            </div>
+            <!-- Dash Equivalence -->
+            <div class="col-md-3 account-wallet">
+              <div class="account-balance">
+                <div class="balance-label hidden-xs hidden-sm">Conversion Rate</div>
+                <span class="currency-symbol">DASH</span>
+                <span class="amount ng-binding">1.0</span>
+                <span class="dollar-equiv" ng-click="switchBtcDollarEquivalentCurrency()">
+                  ≈
+                  <span ng-bind="btcDollarEquivalent('BTC', balances.BTC, BtcDollarEquivalentCurrency) | currencyFormat: BtcDollarEquivalentCurrency" class="ng-binding">US$<%= '%.2f' % (@priceDASH*1.01) %></span>
+                </span>
+              </div>
+            </div>
+            <!--Buy Dash -->
+            <div class="col-md-4">
+            <div class="col-xs-7s trade-action">
+              <div class="trade-label" style="width:150%">
+                Buy Dash for USD at
+              </div>
+              <!-- <ticker class="buy-price ng-isolate-scope" currency-pair="BTCUSD" direction="sell">
+                <span class="ticker buy-price">
+                  <span class="ticker-currency ng-binding">US$</span>
+                  <span class="ticker-dollars ng-binding"><%= '%.2f' % (@priceBTC*1.01) %></span>
+                </span>
+              </ticker>
+              <button class="btn buy-btn trade-btn" ng-click="usdUnavailable()">
+                Buy
+              </button> -->
+              <%= form_for @new_transaction do |f| %>
+                <%= f.hidden_field :currency_id, value:5 %>
+                <%= f.hidden_field :amount_unit, :class=>'buyprice',value:'%.2f' % (@priceDASH*1.01) %>
+                <%= f.hidden_field :txn_type, value: 1 %>
+                <%= f.number_field :units, :class => 'text_field', :step => 0.01, :min => 0.01, :max => '%.2f'% (current_user.credits_remaining/@priceDASH), :required => true %>
+                <%= f.label :Units, :style=>'text-transform: lowercase'%> of DASH
+                <h4 id = 'cost'>Transaction value: </h4>
+                <%= f.submit "Buy", :class=>'btn buy-btn trade-btn' %>
+              <% end %>
+            </div>
+          </div>
+        </div>
+      </div>
+        </div>
+        </div>
+      </div>
+
 
     </div>
-
-
-<div class="buy_currency">
-
-  <h3 id='liveETH'>Ethereum (ETH)</h3>
-  <h3 class = 'buy_price'>Buy price (unit): US$<%= '%.2f' % (@priceETH*1.01) %> </h3>
-  <%= form_for @new_transaction do |f| %>
-  <%= f.hidden_field :currency_id, value:2 %>
-  <%= f.hidden_field :amount_unit, value:'%.2f' % (@priceETH*1.01) %>
-  <%= f.hidden_field :txn_type, value: 1 %>
-
-    <%= f.label :Units %>
-    <%= f.number_field :units, :class => 'text_field', :step => 0.01, :min => 0.01, :max => '%.2f'% (current_user.credits_remaining/@priceETH), :required => true %>
-    <%= f.submit "Buy" %>
-    <h4 id = 'cost'>Transaction value: </h4>
-  <% end %>
-
+  </div>
+</div>
 </div>
 
-<div class="buy_currency">
+<div class="footer-wrapper">
+  <div class="footer-wrapper">
+      <div id="footer">
+  <div class="section sign-up" >
+  <div class="container">
 
-  <h3 id='liveXRP'>Ripple (XRP)</h3>
-  <h3 class = 'buy_price'>Buy price (unit): US$<%= '%.3f' % (@priceXRP*1.01) %> </h3>
-  <%= form_for @new_transaction do |f| %>
-  <%= f.hidden_field :currency_id, value:3 %>
-  <%= f.hidden_field :amount_unit, value:'%.2f' % (@priceXRP*1.01) %>
-  <%= f.hidden_field :txn_type, value: 1 %>
-    <%= f.label :Units %>
-    <%= f.number_field :units, :class => 'text_field', :step => 0.01, :min => '%.2f'% (1/@priceXRP), :max => '%.2f'% (current_user.credits_remaining/@priceXRP), :required => true %>
-    <%= f.submit "Buy" %>
-    <h4 id = 'cost'>Transaction value: </h4>
-  <% end %>
-</div>
+  <form
+  action="//handy.us11.list-manage.com/subscribe/post?u=74ab25dc9a29af4f96c2b9c28&amp;id=8dbc838e06"
+  method="POST"
+  id="sign_up_form_mailchimp"
+  class="form-horizontal desktop-only"
+  >
+  <div class="form-group" style="vertical-align:middle">
 
 
-  <div class="buy_currency">
+           <h2 style='text-align:center !important'>Create an account to start trading today!</h2>
+           <button style='border-radius:7px; float:none; margin-left:210px' onclick="location.href='/register'" id="sign_up_form_submit_mailchimp" class="btn submit">Create Account</button>
 
-    <h3 id='liveLTC'>Litecoin (LTC)</h3>
-    <h3 class = 'buy_price'>Buy price (unit): US$<%= '%.2f' % (@priceLTC*1.01) %> </h3>
-    <%= form_for @new_transaction do |f| %>
-    <%= f.hidden_field :currency_id, value:4 %>
-    <%= f.hidden_field :amount_unit, value:'%.2f' % (@priceLTC*1.01) %>
-    <%= f.hidden_field :txn_type, value: 1 %>
-      <%= f.label :Units %>
-      <%= f.number_field :units, :class => 'text_field', :step => 0.01, :min => '%.2f'% (1/@priceLTC), :max => '%.2f'% (current_user.credits_remaining/@priceLTC), :required => true %>
-      <%= f.submit "Buy" %>
-      <h4 id = 'cost'>Transaction value: </h4>
-    <% end %>
+
+      <div class="input-control submit-btn-container">
+
+
+
+      </div>
+  </div>
+  </form>
+  </div>
+  </div>
+  <div class="section footer">
+  <div class="container">
+  <div class="col-md-6">
+    <%= image_tag 'kk_logo.png', :style=>"width:220px"%>
+    <div class="social-container">
+          <ul class="social-bar">
+              <li><img style="width:100px" src="https://assets-cdn.github.com/images/modules/logos_page/Octocat.png" alt=""></li>
+
+              <li><%= image_tag ('ga.png'), :style=>'width:80px' %></li>
+
+              <li><img style="width:90px; padding-left:15px" src="https://ky7jb123t6m17he4cm80n26x-wpengine.netdna-ssl.com/wp-content/uploads/2015/03/gmail-icon2.png" alt=""></li>
+
+          </ul>
+      </div>
+      <div class="copyright-container">
+          <div class="copyright">All Rights Reserved KryptoKnight, Co. © <%= image_tag ('comic2.png'), :style=>'width:90px' %>
+          </div>
+
+          <nav class="tnc">
+            <a href="xxxx">Terms & Conditions</a>
+          </nav>
+      </div>
   </div>
 
-    <div class="buy_currency">
-
-      <h3 id='liveDASH'>Dash (DASH)</h3>
-      <h3 class = 'buy_price'>Buy price (unit): US$<%= '%.2f' % (@priceDASH*1.01) %> </h3>
-      <%= form_for @new_transaction do |f| %>
-      <%= f.hidden_field :currency_id, value:5 %>
-      <%= f.hidden_field :amount_unit, value:'%.2f' % (@priceDASH*1.01) %>
-      <%= f.hidden_field :txn_type, value: 1 %>
-        <%= f.label :Units  %>
-        <%= f.number_field :units, :class => 'text_field', :step => 0.01, :min => 0.01, :max => '%.2f'% (current_user.credits_remaining/@priceDASH), :required => true %>
-        <%= f.submit "Buy" %>
-        <h4 id = 'cost'>Transaction value: </h4>
-      <% end %>
-
-    </div>
-
-
-
-    <br><br><br><br><br>
+  </div>
+  </div>
