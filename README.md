@@ -14,17 +14,6 @@ A cryptocurrency analysis & trading tool which allow users to view other usersâ€
 * View portfolio and past transactions of fellow traders and learn/ mimic their trading strategies/ results
 
 
-
-## Features list
-* Sign up, login, logout
-* View graphical data of top 5 cryptocurrencies over XX timelines:
-* View XX technical indicators:
-* Comparison of performances of top 5 cryptocurrencies over specific timelines
-* Trader portfolio of cryptocurrencies
-* Buy and sell top ten cryptocurrencies with provided XX virtual credits
-* View portfolio performance data such as profit & loss
-* View performances of other traders
-
 ## ERD
 ![ERD](ERD-3.jpg)
 
