@@ -35,7 +35,7 @@ A cryptocurrency analysis & trading tool which allow users to view other usersâ€
 - Time conversion from server to local computer time
 - Customizing chart for dark backgrounds
 
-## Features we wished we could include for this Version
+## Features we wished we could have included for this Version
 
 - Realtime update on cryptocurrency prices
 - Chat feature with other traders
