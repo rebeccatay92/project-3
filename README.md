@@ -78,7 +78,7 @@ A cryptocurrency analysis & trading tool which allow users to view other usersâ€
 
 * Trello was utilised to keep track of tasks and assist in project management.
 
-![Phase2](model schema.013.jpeg)
+![Trello](model schema.013.jpeg)
 
 ## Live Version
 
