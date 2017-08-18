@@ -21,8 +21,19 @@ A cryptocurrency analysis & trading tool which allow users to view other usersâ€
 ![Schemas](models.001.jpeg)
 
 ## Wireframes
-* Graph page
-* Portfolio & transactions page
+
+* Conceptualized product
+![signup_interface](Kryptograph.007.jpeg)
+
+![Analysis_interface](Kryptograph.017.jpeg)
+
+* Actual product
+![signup](signup.png)
+
+![analysis](analysis.png)
+
+![portfolio](portfolio.png)
+
 
 ## How to Use
 
