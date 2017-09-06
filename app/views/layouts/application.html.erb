@@ -1,26 +1,20 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Project3</title>
+
     <%= csrf_meta_tags %>
 
     <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
 
-  	<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.15/css/jquery.dataTables.css">
+
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.15/css/jquery.dataTables.css">
     <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.15/js/jquery.dataTables.js"></script>
   </head>
 
   <body class="<%= controller_name %> <%= action_name %>">
 
-    <h1>KryptoKnight Beta</h1>
-    <h2>Navigation Bar</h2>
-
-    <%= render 'partials/navbar' %>
-
-    <p class="notice"><%= notice %></p>
-    <p class="alert"><%= alert %></p>
-
     <%= yield %>
+
   </body>
 </html>

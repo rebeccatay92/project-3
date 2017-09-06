@@ -1,7 +1,60 @@
-<% if current_user %>
-<h1>Hello <%= current_user.name  %></h1>
-<% end %>
-<h1>CHARTS HERE</h1>
+<div class="wrapper">
+    <div class="header-wrapper">
+    <div id="header" class="sticky">
+        <div class="container">
+            <a href="/"><span class="handy-logo"></span></a>
+              <div class="menu desktop-only">
+                <nav>
+                  <ul class="nav nav-pills pull-right" >
+                  <li class=" active ">
+                      <%=link_to "Live Exchange", analysis_path, :class=>'nav-link'%>
+                  </li>
+
+              <% if user_signed_in? %>
+                  <li class=" ">
+                      <%=link_to "Portfolio", portfolios_path, :class=>'nav-link'%>
+                  </li>
+                  <li class=" ">
+                      <%=link_to "Account", social_trading_path(current_user.id), :class=>'nav-link' %>
+                  </li>
+                  <li class=" ">
+                      <%=link_to "Social Trading", social_trading_index_path, :class=>'nav-link'%>
+                  </li>
+                  <li class=" ">
+                      <%=link_to "Log Out", destroy_user_session_path, method: :delete, :class=>'nav-link'%>
+                  </li>
+
+              <% else %>
+                  <li class=" ">
+                    <%=link_to "Register", new_user_registration_path, :class=>'nav-link', :title=>'Register'%>
+                  </li>
+                  <li class=" ">
+                      <%=link_to "Log In", new_user_session_path, :class=>'nav-link', :title=>'Log In'%>
+                  </li>
+
+              <% end %>
+              <li class= "">
+                  <a class="handy-btn btn-outline-animated btn-orange-white" href="/contact" title="Contact Us" target="_blank"><svg style='background-color:transparent !important'><rect x="0" y="0" fill="none" width="100%" height="100%"/></svg>Contact Us</a>
+              </li>
+              </ul>
+            </nav>
+          </div>
+        </div>
+    </div>
+    </div>
+</div>
+
+<div ui-view="" class="ng-scope" style=""><div full-height="" id="wallet-dashboard" class="ng-scope" style="min-height: 600px;">
+  <div class="container" style='background-color:#f8f8f8; padding-left:80px'>
+
+
+
+<br><br>
+<div class="content">
+  <% if user_signed_in? %>
+    <h2 style="color:black; font-weight:bold">Welcome <i><%= current_user.name %>..</i></h2>
+  <% end %>
+</div>
 
 <form>
 <select class="currency" name="">
@@ -56,3 +109,6 @@
 </form>
 <div id="graph"></div>
 <div id="volume"></div>
+
+</div>
+</div>

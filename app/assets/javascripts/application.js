@@ -17,4 +17,5 @@
 //= require metrics-graphics-rails
 //= require jquery
 //= require jquery-readyselector
+//= require app
 //= require_tree .

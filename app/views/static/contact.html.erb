@@ -1,0 +1,143 @@
+  <title>KryptoKnight - Contact Us</title>
+
+  <div class="wrapper">
+      <div class="header-wrapper">
+                <div id="header" class="sticky">
+                      <div class="container">
+                          <a href="/"><span class="handy-logo"></span></a>
+                            <div class="menu desktop-only">
+                              <nav>
+                                <ul class="nav nav-pills pull-right" >
+                                <li class=" ">
+                                    <%=link_to "Live Exchange", analysis_path, :class=>'nav-link'%>
+                                </li>
+
+                            <% if user_signed_in? %>
+                                <li class=" ">
+                                    <%=link_to "Portfolio", portfolios_path, :class=>'nav-link'%>
+                                </li>
+                                <li class=" ">
+                                    <%=link_to "Account", social_trading_path(current_user.id), :class=>'nav-link' %>
+                                </li>
+                                <li class=" ">
+                                    <%=link_to "Social Trading", social_trading_index_path, :class=>'nav-link'%>
+                                </li>
+                                <li class=" ">
+                                    <%=link_to "Log Out", destroy_user_session_path, method: :delete, :class=>'nav-link'%>
+                                </li>
+
+                            <% else %>
+                                <li class=" ">
+                                  <%=link_to "Register", new_user_registration_path, :class=>'nav-link', :title=>'Register'%>
+                                </li>
+                                <li class=" ">
+                                    <%=link_to "Log In", new_user_session_path, :class=>'nav-link', :title=>'Log In'%>
+                                </li>
+
+                            <% end %>
+                            <li class= "">
+                                <a class="handy-btn btn-outline-animated btn-orange-white" href="/contact" title="Contact Us" target="_blank"><svg style="background-color: transparent !important"><rect x="0" y="0" fill="none" width="100%" height="100%"/></svg>Contact Us</a>
+                            </li>
+                            </ul>
+                          </nav>
+                        </div>
+                </div>
+            </div>
+    </div>
+</div>
+
+
+      <div class="section landing-section">
+  <br><br><br>
+  <div class="row">
+    <div class="col-md-8 col-md-offset-2">
+
+      <h2 class="text-center title">Don't Be Shy, Say Hi!</h2>
+      <h4 class="text-center description">Got a burning question in mind? Need some technical support, or simply looking for a job? <br>Drop us a note! </h4>
+        <form class="contact-form" enctype="text/plain" method="POST" action="mailto:kryptoknight.help@gmail.com?subject=Message from KryptoKnight Website">
+
+          <div class="row">
+            <div class="col-md-6">
+          	<div class="form-group label-floating">
+          	  <label class="control-label">Your Name</label>
+          	  <input type="text" class="form-control" name="Name:">
+        		</div>
+            </div>
+
+            <div class="col-md-6">
+  		      <div class="form-group label-floating">
+          			<label class="control-label">Subject</label>
+          			<input type="text" name="Subject:"class="form-control">
+          	</div>
+            </div>
+          </div>
+
+          <div class="form-group label-floating">
+          	<label class="control-label">Your Messge</label>
+          	<textarea class="form-control" rows="4" name="Message:"></textarea>
+          </div>
+
+          <div class="row">
+            <div class="col-md-4 col-md-offset-4 text-center">
+            <button class="btn btn-primary btn-raised" type="submit">Send Message</button>
+            </div>
+          </div>
+
+        </form>
+      </div>
+  </div>
+</div>
+
+<div class="footer-wrapper">
+    <div id="footer">
+<div class="section sign-up" >
+<div class="container">
+
+<form
+action="//handy.us11.list-manage.com/subscribe/post?u=74ab25dc9a29af4f96c2b9c28&amp;id=8dbc838e06"
+method="POST"
+id="sign_up_form_mailchimp"
+class="form-horizontal desktop-only"
+>
+<div class="form-group" style="vertical-align:middle">
+
+
+         <h2 style='text-align:center !important'>Create an account to start trading today!</h2>
+         <button style='border-radius:7px; float:none; margin-left:210px' onclick="location.href='/register'" id="sign_up_form_submit_mailchimp" class="btn submit">Create Account</button>
+
+
+    <div class="input-control submit-btn-container">
+
+
+
+    </div>
+</div>
+</form>
+</div>
+</div>
+<div class="section footer">
+<div class="container">
+<div class="col-md-6">
+  <%= image_tag 'kk_logo.png', :style=>"width:220px"%>
+  <div class="social-container">
+        <ul class="social-bar">
+            <li><img style="width:100px" src="https://assets-cdn.github.com/images/modules/logos_page/Octocat.png" alt=""></li>
+
+            <li><%= image_tag ('ga.png'), :style=>'width:80px' %></li>
+
+            <li><img style="width:90px; padding-left:15px" src="https://ky7jb123t6m17he4cm80n26x-wpengine.netdna-ssl.com/wp-content/uploads/2015/03/gmail-icon2.png" alt=""></li>
+
+        </ul>
+    </div>
+    <div class="copyright-container">
+        <div class="copyright">All Rights Reserved KryptoKnight, Co. © <%= image_tag ('comic2.png'), :style=>'width:90px' %>
+        </div>
+
+        <nav class="tnc">
+          <a href="xxxx">Terms & Conditions</a>
+        </nav>
+    </div>
+</div>
+
+</div>
+</div>
