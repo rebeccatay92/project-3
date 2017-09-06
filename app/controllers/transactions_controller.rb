@@ -12,7 +12,6 @@ new_transaction = Transaction.new
   new_transaction.txn_amt = new_transaction.units* new_transaction.amount_unit
   new_transaction.save!
 
-
   if new_transaction.id
     if new_transaction.txn_type == 1
 

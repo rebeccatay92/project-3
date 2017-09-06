@@ -13,6 +13,7 @@ gem 'devise'
 gem 'pry'
 gem 'faker'
 gem 'httparty'
+
 gem 'sprockets', '>=3.0.0.beta'
 gem 'sprockets-es6'
 
